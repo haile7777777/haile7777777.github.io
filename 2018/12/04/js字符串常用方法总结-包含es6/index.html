@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="js字符串操作,">
 
 
 
@@ -79,16 +79,18 @@
 
 
 
-<meta name="description" content="技术面前，一直都是小老弟">
-<meta property="og:type" content="website">
-<meta property="og:title" content="littlebro_HLE">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="1.概述本文总结js中字符串的常用方法，包含es6中的字符串操作，作为查询文档 2.总结   序号 方法名 方法描述 参数 返回值     1 charAt() 查找字符串给定位置的字符 一个整数 返回给定位置的单个字符   2 concat() 字符串拼接 要拼接的字符串 返回拼接好的新的字符串   3 indexOf() 返回字符串中检索指定字符第一次出现的位置 查询子字符串 返回索引值">
+<meta name="keywords" content="js字符串操作">
+<meta property="og:type" content="article">
+<meta property="og:title" content="js字符串常用方法总结 (包含es6)">
+<meta property="og:url" content="http://yoursite.com/2018/12/04/js字符串常用方法总结-包含es6/index.html">
 <meta property="og:site_name" content="littlebro_HLE">
-<meta property="og:description" content="技术面前，一直都是小老弟">
+<meta property="og:description" content="1.概述本文总结js中字符串的常用方法，包含es6中的字符串操作，作为查询文档 2.总结   序号 方法名 方法描述 参数 返回值     1 charAt() 查找字符串给定位置的字符 一个整数 返回给定位置的单个字符   2 concat() 字符串拼接 要拼接的字符串 返回拼接好的新的字符串   3 indexOf() 返回字符串中检索指定字符第一次出现的位置 查询子字符串 返回索引值">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-12-05T03:03:50.666Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="littlebro_HLE">
-<meta name="twitter:description" content="技术面前，一直都是小老弟">
+<meta name="twitter:title" content="js字符串常用方法总结 (包含es6)">
+<meta name="twitter:description" content="1.概述本文总结js中字符串的常用方法，包含es6中的字符串操作，作为查询文档 2.总结   序号 方法名 方法描述 参数 返回值     1 charAt() 查找字符串给定位置的字符 一个整数 返回给定位置的单个字符   2 concat() 字符串拼接 要拼接的字符串 返回拼接好的新的字符串   3 indexOf() 返回字符串中检索指定字符第一次出现的位置 查询子字符串 返回索引值">
 
 
 
@@ -118,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/">
+  <link rel="canonical" href="http://yoursite.com/2018/12/04/js字符串常用方法总结-包含es6/">
 
 
 
 
 
-  <title>littlebro_HLE</title>
+  <title>js字符串常用方法总结 (包含es6) | littlebro_HLE</title>
   
 
 
@@ -143,8 +145,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
@@ -237,9 +238,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -269,9 +270,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/04/js字符串常用方法总结-包含es6/" itemprop="url">js字符串常用方法总结 (包含es6)</a></h1>
+          <h1 class="post-title" itemprop="name headline">js字符串常用方法总结 (包含es6)</h1>
         
 
         <div class="post-meta">
@@ -343,9 +342,7 @@
       
 
       
-        
-          
-            <h1 id="1-概述"><a href="#1-概述" class="headerlink" title="1.概述"></a>1.概述</h1><h5 id="本文总结js中字符串的常用方法，包含es6中的字符串操作，作为查询文档"><a href="#本文总结js中字符串的常用方法，包含es6中的字符串操作，作为查询文档" class="headerlink" title="本文总结js中字符串的常用方法，包含es6中的字符串操作，作为查询文档"></a>本文总结js中字符串的常用方法，包含es6中的字符串操作，作为查询文档</h5><hr>
+        <h1 id="1-概述"><a href="#1-概述" class="headerlink" title="1.概述"></a>1.概述</h1><h5 id="本文总结js中字符串的常用方法，包含es6中的字符串操作，作为查询文档"><a href="#本文总结js中字符串的常用方法，包含es6中的字符串操作，作为查询文档" class="headerlink" title="本文总结js中字符串的常用方法，包含es6中的字符串操作，作为查询文档"></a>本文总结js中字符串的常用方法，包含es6中的字符串操作，作为查询文档</h5><hr>
 <h1 id="2-总结"><a href="#2-总结" class="headerlink" title="2.总结"></a>2.总结</h1><table>
 <thead>
 <tr>
@@ -445,8 +442,6 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var str = &quot;How are you&quot;;</span><br><span class="line">var n = str.split(&quot; &quot;);</span><br><span class="line">console.log(n);  //[&quot;How&quot;,&quot;are&quot;,&quot;you&quot;]</span><br></pre></td></tr></table></figure></li>
 </ul>
 
-          
-        
       
     </div>
     
@@ -461,167 +456,36 @@
 
     <footer class="post-footer">
       
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/24/hexo搭建博客步骤总览/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="HLE_littlebro">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="littlebro_HLE">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/24/hexo搭建博客步骤总览/" itemprop="url">hexo搭建博客步骤总览</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-24T16:36:01+08:00">
-                2018-11-24
-              </time>
-            
-
-            
-
-            
-          </span>
-
+        <div class="post-tags">
           
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/hexo教程/" itemprop="url" rel="index">
-                    <span itemprop="name">hexo教程</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
+            <a href="/tags/js字符串操作/" rel="tag"># js字符串操作</a>
           
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h1><h5 id="本文只罗列使用Hexo搭建个人博客的步骤，每个步骤的详细操作都会有一个链接指向单独的一篇文章。"><a href="#本文只罗列使用Hexo搭建个人博客的步骤，每个步骤的详细操作都会有一个链接指向单独的一篇文章。" class="headerlink" title="本文只罗列使用Hexo搭建个人博客的步骤，每个步骤的详细操作都会有一个链接指向单独的一篇文章。"></a>本文只罗列使用Hexo搭建个人博客的步骤，每个步骤的详细操作都会有一个链接指向单独的一篇文章。</h5><h5 id="如果你对使用Hexo搭建个人博客感兴趣，可以参考本文罗列出的这一系列文章来搭建自己的博客"><a href="#如果你对使用Hexo搭建个人博客感兴趣，可以参考本文罗列出的这一系列文章来搭建自己的博客" class="headerlink" title="如果你对使用Hexo搭建个人博客感兴趣，可以参考本文罗列出的这一系列文章来搭建自己的博客"></a>如果你对使用Hexo搭建个人博客感兴趣，可以参考本文罗列出的这一系列文章来搭建自己的博客</h5><hr>
-<h1 id="步骤如下："><a href="#步骤如下：" class="headerlink" title="步骤如下："></a>步骤如下：</h1><p><strong>如果你是小白，按照以下步骤一步步进行即可完成，如果你已经有基础了，可以选择性的查看</strong></p>
-<ol>
-<li>安装hexo,本地测试（自己在本地访问）</li>
-<li>注册github账号，创建代码仓库</li>
-<li>修改配置文件，将代码托管到github,实现通过github服务访问（现在人人都可以访问了）</li>
-<li>下载安装喜欢的主题，给博客换个样子</li>
-<li>购买域名并进行域名解析（现在有自己的个性域名了，不用通过github提供的服务地址访问了）</li>
-<li>修改主题配置文件，把想要或者不想要的模块都安排的明明白白</li>
-<li>可以专心写文章了，先学习一下markdown语法吧</li>
-<li>写自己的第一篇文章并发表</li>
-</ol>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
       
 
       
       
-        <div class="post-eof"></div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/11/24/hexo搭建博客步骤总览/" rel="next" title="hexo搭建博客步骤总览">
+                <i class="fa fa-chevron-left"></i> hexo搭建博客步骤总览
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
       
     </footer>
   </div>
@@ -631,10 +495,11 @@
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -642,6 +507,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -662,8 +531,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -725,6 +603,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-概述"><span class="nav-number">1.</span> <span class="nav-text">1.概述</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#本文总结js中字符串的常用方法，包含es6中的字符串操作，作为查询文档"><span class="nav-number">1.0.0.0.1.</span> <span class="nav-text">本文总结js中字符串的常用方法，包含es6中的字符串操作，作为查询文档</span></a></li></ol></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#2-总结"><span class="nav-number">2.</span> <span class="nav-text">2.总结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-charAt-代码演示"><span class="nav-number">2.0.1.</span> <span class="nav-text">2.1 charAt()代码演示</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-concat-代码演示"><span class="nav-number">2.0.2.</span> <span class="nav-text">2.2 concat()代码演示</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-indexOf-和lastIndexOf-代码演示"><span class="nav-number">2.0.3.</span> <span class="nav-text">2.3 indexOf()和lastIndexOf()代码演示</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#★2-4-replace-代码演示"><span class="nav-number">2.0.4.</span> <span class="nav-text">★2.4 replace()代码演示</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#★2-5-slice-代码演示"><span class="nav-number">2.0.5.</span> <span class="nav-text">★2.5 slice()代码演示</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#★2-6-splite-代码演示"><span class="nav-number">2.0.6.</span> <span class="nav-text">★2.6 splite()代码演示</span></a></li></ol></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -859,6 +753,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
