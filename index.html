@@ -344,17 +344,14 @@
 
       
         
-          
-            <a id="more"></a>
-<h2 id="1-概述"><a href="#1-概述" class="headerlink" title="1.概述"></a>1.概述</h2><p>本文主要记录和演示vue中router的使用，包括<strong>路由基础</strong>，<strong>动态路由</strong>，<strong>嵌套路由</strong>，<strong>编程式路由</strong></p>
-<hr>
-<h2 id="2-路由基础"><a href="#2-路由基础" class="headerlink" title="2.路由基础"></a>2.路由基础</h2><p><strong>2.1 路由的基本组成分为两个部分：</strong></p>
-<ul>
-<li><router-link to=""></router-link> –负责跳转，相当于<a href=""></a></li>
-<li><router-view></router-view>  –负责渲染</li>
-</ul>
-
-          
+          <h2 id="1-概述"><a href="#1-概述" class="headerlink" title="1.概述"></a>1.概述</h2><p>本文主要记录和演示vue中router的使用，包括<strong>路由基础</strong>，<strong>动态路由</strong>，<strong>嵌套路由</strong>，<strong>编程式路由</strong></p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/12/12/vue-router/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -493,13 +490,14 @@
 
       
         
-          
-            <a id="more"></a>
-<h2 id="1-使用原生js封装一个ajax函数"><a href="#1-使用原生js封装一个ajax函数" class="headerlink" title="1.使用原生js封装一个ajax函数"></a>1.使用原生js封装一个ajax函数</h2><p><strong>通过上一篇中对原生js中发送请求的重要组成部分以及请求步骤的了解，我们可以封装一个函数，统一的处理get和post请求</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">var $ = &#123;</span><br><span class="line">    //封装将对象转换为?key=value&amp;key=value形式的方法</span><br><span class="line">    getParameters: function (data) &#123;</span><br><span class="line">        if (data &amp;&amp; typeof data == &quot;object&quot;) &#123;</span><br><span class="line">            var str = &quot;?&quot;;</span><br><span class="line">            for (var key in data) &#123;</span><br><span class="line">                str += key + &quot;=&quot; + data[key] + &quot;&amp;&quot;;</span><br><span class="line">            &#125;</span><br><span class="line">            str = str.substr(0,str.length-1);</span><br><span class="line">        &#125;</span><br><span class="line">        return str;</span><br><span class="line">    &#125;,</span><br><span class="line">    ajax: function (option) &#123;</span><br><span class="line">        var type = option.type || &quot;get&quot;;    //请求方式</span><br><span class="line">        var url = option.url || location.href;  //请求路径</span><br><span class="line">        var data = this.getParameters(option.data) || &quot;&quot;;   //查询参数</span><br><span class="line">        var success = option.success;   //成功回调函数</span><br><span class="line"></span><br><span class="line">        //1.创建XMLHttpRequest对象</span><br><span class="line">        var xhr = new XMLHttpRequest();</span><br><span class="line"></span><br><span class="line">        //2.发送异步请求</span><br><span class="line">        //2.1get请求需要拼接查询参数</span><br><span class="line">        if(type == &quot;get&quot;)&#123;</span><br><span class="line">            url += data;</span><br><span class="line">            data = null;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        xhr.open(type,url);</span><br><span class="line">        //2.2post请求需要设置请求头</span><br><span class="line">        if(type == &quot;post&quot;)&#123;</span><br><span class="line">            xhr.setRequestHeader(&quot;Content-Type&quot;,&quot;application/x-www-form-urlencoded&quot;);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        xhr.send(data);</span><br><span class="line"></span><br><span class="line">        //3.处理响应</span><br><span class="line">        xhr.onreadystatechange = function () &#123;</span><br><span class="line">            if(xhr.status == &quot;200&quot; &amp;&amp; xhr.readyState == &quot;4&quot;)&#123;</span><br><span class="line">                var requestHeader = xhr.getResponseHeader(&quot;Content-Type&quot;);</span><br><span class="line">                if(requestHeader.indexOf(&quot;xml&quot;) != -1)&#123;</span><br><span class="line">                    var result = xhr.responseXML;</span><br><span class="line">                &#125;else if(requestHeader.indexOf(&quot;json&quot;) != -1)&#123;</span><br><span class="line">                    var result = xhr.responseText;</span><br><span class="line">                &#125;else&#123;</span><br><span class="line">                    var result = xhr.responseText;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                success &amp;&amp; success(result);</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<hr>
-<p><strong>使用封装好的ajax发送请求</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">    $.ajax(&#123;</span><br><span class="line">        type: &quot;get&quot;,</span><br><span class="line">        url: &quot;getList.php&quot;,</span><br><span class="line">        data: &#123;&#125;,</span><br><span class="line">        success: render</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">    function render(result) &#123;</span><br><span class="line">        result = JSON.parse(result);</span><br><span class="line">        var html = &quot;&quot;;</span><br><span class="line">        for (var i = 0; i &lt; result.length; i++) &#123;</span><br><span class="line">            var item = result[i];</span><br><span class="line">            html += `</span><br><span class="line">                &lt;tr&gt;</span><br><span class="line">                    &lt;th scope=&quot;row&quot;&gt;$&#123;item[&quot;id&quot;]&#125;&lt;/th&gt;</span><br><span class="line">                    &lt;td&gt;&lt;img src=&quot;$&#123;item[&apos;photo&apos;]&#125;&quot; class=&quot;rounded&quot; alt=&quot;张三丰&quot;&gt;&lt;/td&gt;</span><br><span class="line">                    &lt;td&gt;$&#123;item[&apos;name&apos;]&#125;&lt;/td&gt;</span><br><span class="line">                    &lt;td&gt;$&#123;item.gender&#125;&lt;/td&gt;</span><br><span class="line">                    &lt;td&gt;$&#123;item.birthday&#125;&lt;/td&gt;</span><br><span class="line">                    &lt;td&gt;暂无操作&lt;/td&gt;</span><br><span class="line">                &lt;/tr&gt;</span><br><span class="line">            `;</span><br><span class="line">        &#125;</span><br><span class="line">        console.log(html);</span><br><span class="line">        document.querySelector(&quot;#tb&quot;).innerHTML = html;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure></p>
-
-          
+          <h2 id="1-使用原生js封装一个ajax函数"><a href="#1-使用原生js封装一个ajax函数" class="headerlink" title="1.使用原生js封装一个ajax函数"></a>1.使用原生js封装一个ajax函数</h2><p><strong>通过上一篇中对原生js中发送请求的重要组成部分以及请求步骤的了解，我们可以封装一个函数，统一的处理get和post请求</strong></p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/12/11/原生js-ajax封装/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -638,36 +636,21 @@
 
       
         
-          
-            <h2 id="1-promise是什么"><a href="#1-promise是什么" class="headerlink" title="1.promise是什么"></a>1.promise是什么</h2><ul>
+          <h2 id="1-promise是什么"><a href="#1-promise是什么" class="headerlink" title="1.promise是什么"></a>1.promise是什么</h2><ul>
 <li>promise可以做如下的理解：<ul>
 <li>promise主要用于异步计算</li>
 <li>可以将异步操作队列化，使其能按照期望的顺序执行，返回符合预期的结果</li>
-<li>可以在对象之间传递和操作promise，帮助我们处理队列</li>
-</ul>
-</li>
-</ul>
-<hr>
-<h2 id="2-基本用法"><a href="#2-基本用法" class="headerlink" title="2.基本用法"></a>2.基本用法</h2><ul>
-<li>首先，new一个promise实例</li>
-<li>将耗时操作放在执行器中执行。</li>
-<li>如果成功，调用resolve方法，如果失败，调用reject方法，这两个方法调用后会改变promise上课实例的状态</li>
-<li>promise实例的状态改变后，会调用then中对应的方法。状态为resolved对应function A；状态为rejected对用function B；<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">const promise = new Promise(function(resolve, reject) &#123;</span><br><span class="line">  // 执行器</span><br><span class="line"></span><br><span class="line">  if (/* 异步操作成功 */)&#123;</span><br><span class="line">    resolve(value);</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">    reject(error);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;).then(function A()&#123;</span><br><span class="line"></span><br><span class="line">&#125;,function B()&#123;</span><br><span class="line"></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<hr>
-<h2 id="3-promise的三种状态"><a href="#3-promise的三种状态" class="headerlink" title="3.promise的三种状态"></a>3.promise的三种状态</h2><ul>
-<li>初始化promise实例后，状态为<strong>pending</strong>;</li>
-<li>执行执行器中的耗时操作代码后，成功则状态为fulfilled；</li>
-<li><p>执行失败，则状态为rejected</p>
-<p>  <strong>一旦promise实例的状态改变就不能再变化，是不可逆的</strong><br>  <strong>promis实例的状态改变后就会立即触发then中的响应函数</strong></p>
-</li>
-</ul>
-
-          
+<li>可以在对象之间传递和操作promise，帮助我们处理队列
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/12/10/es6中的promise/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
-    </div>
+    </li></ul></li></ul></div>
     
     
     
@@ -803,113 +786,20 @@
 
       
         
-          
-            <a id="more"></a>
-<h1 id="1-ajax概述"><a href="#1-ajax概述" class="headerlink" title="1. ajax概述"></a>1. ajax概述</h1><ul>
+          <h1 id="1-ajax概述"><a href="#1-ajax概述" class="headerlink" title="1. ajax概述"></a>1. ajax概述</h1><ul>
 <li>概述<ul>
 <li>ajax是一种用于创建快速动态网页的技术。通过在后台与服务器进行少量数据交换，AJAX 可以使网页实现异步更新。这意味着可以在不重新加载整个网页的情况下，对网页的某部分进行更新。</li>
 <li>ajax 主要用在表单的异步请求，文件流的读写等一些耗时操作中。</li>
 </ul>
 </li>
 </ul>
-<hr>
-<h1 id="2-XMLHttpRequest对象的创建"><a href="#2-XMLHttpRequest对象的创建" class="headerlink" title="2. XMLHttpRequest对象的创建"></a>2. XMLHttpRequest对象的创建</h1><ul>
-<li><strong>XMLHttpRequest</strong>是 AJAX 的基础；</li>
-<li>创建对象(此处就不考虑IE5~6了)：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">variable=new XMLHttpRequest();</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<hr>
-<h1 id="3-向服务器发送请求"><a href="#3-向服务器发送请求" class="headerlink" title="3.向服务器发送请求"></a>3.向服务器发送请求</h1><ul>
-<li>通过open()和send()向服务器发送请求：<ul>
-<li><strong>open()方法</strong>：<br>open(method,url,async)<ul>
-<li>参数列表：<ul>
-<li>method：请求的类型；GET 或 POST</li>
-<li>url：文件在服务器上的位置</li>
-<li>async：true（异步）或 false（同步）</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><strong>send()方法</strong>：<br>send(string)<ul>
-<li>参数列表：<ul>
-<li>string：仅用于 POST 请求</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>发送请求实例<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">xmlhttp.open(&quot;GET&quot;,&quot;ajax_info.txt&quot;,true);</span><br><span class="line">xmlhttp.send();</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="​"><a href="#​" class="headerlink" title="​"></a>​</h2><h1 id="4-服务器响应的获取"><a href="#4-服务器响应的获取" class="headerlink" title="4.服务器响应的获取"></a>4.服务器响应的获取</h1><ul>
-<li><strong>4.1 响应的获取有两种方式：</strong><ul>
-<li>responseText–获得字符串形式的响应数据</li>
-<li>responseXML–获得 XML 形式的响应数据。</li>
-</ul>
-</li>
-</ul>
-<hr>
-<h1 id="5-onreadystatechange事件"><a href="#5-onreadystatechange事件" class="headerlink" title="5.onreadystatechange事件"></a>5.onreadystatechange事件</h1><p>当请求被发送到服务器时，我们需要执行一些基于响应的任务。每当 readyState 改变时，就会触发 onreadystatechange 事件。readyState 属性存有 XMLHttpRequest 的状态信息</p>
-<p><strong>XMLHttpRequest 对象的三个重要的属性：</strong></p>
-<ul>
-<li><strong>1.onreadystatechange</strong><ul>
-<li>描述：存储函数（或函数名），每当 readyState 属性改变时，就会调用该函数。</li>
-</ul>
-</li>
-<li><strong>2.readyState</strong><ul>
-<li>描述：存有 XMLHttpRequest 的状态。从 0 到 4 发生变化。<ul>
-<li>0: 请求未初始化</li>
-<li>1: 服务器连接已建立</li>
-<li>2: 请求已接收</li>
-<li>3: 请求处理中</li>
-<li>4: 请求已完成，且响应已就绪</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><strong>3.status</strong><ul>
-<li>描述：服务器响应状态<ul>
-<li>200: “OK”</li>
-<li>404: 未找到页面</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<hr>
-<h1 id="6-get和post的ajax请求实例"><a href="#6-get和post的ajax请求实例" class="headerlink" title="6.get和post的ajax请求实例"></a>6.get和post的ajax请求实例</h1><ul>
-<li>从2~5的节点总结中已经介绍了原生js中的ajax请求的重要组成部分，下面就可以展示完整的ajax请求了。<ul>
-<li><strong>get请求</strong><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">	&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;</span><br><span class="line">    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;ie=edge&quot;&gt;</span><br><span class="line">    &lt;link rel=&quot;stylesheet&quot; href=&quot;./form.css&quot;&gt;</span><br><span class="line">    &lt;title&gt;Document&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;form action=&quot;./register.php&quot; method=&quot;post&quot;&gt;     </span><br><span class="line">        &lt;span id=&quot;msg&quot;&gt;aaa&lt;/span&gt;  </span><br><span class="line">        用户名：&lt;input type=&quot;text&quot; name=&quot;username&quot; id=&quot;username&quot;&gt;</span><br><span class="line">        昵称：&lt;input type=&quot;text&quot; name=&quot;nickname&quot; &gt;</span><br><span class="line">        密码： &lt;input type=&quot;password&quot; name=&quot;password&quot; &gt;   </span><br><span class="line">        &lt;input type=&quot;submit&quot; value=&quot;注册&quot;&gt;</span><br><span class="line">    &lt;/form&gt;</span><br><span class="line">    &lt;div class=&quot;showmsg&quot;&gt;&lt;/div&gt;</span><br><span class="line">    &lt;script&gt;</span><br><span class="line">        document.querySelector(&quot;#username&quot;).onblur = function()&#123;</span><br><span class="line">            // 1.获取用户数据</span><br><span class="line">            var name = this.value;</span><br><span class="line"></span><br><span class="line">            // 2，让异步对象发送请求</span><br><span class="line">            // 2.1 创建异步对象</span><br><span class="line">            var xhr = new XMLHttpRequest();</span><br><span class="line">            // 2.2 设置 请求行 open(请求方式，请求url):</span><br><span class="line">                // get请求如果有参数就需要在url后面拼接参数，</span><br><span class="line">                // post如果有参数，就在请求体中传递</span><br><span class="line">            xhr.open(&quot;get&quot;,&quot;validate.php?username=&quot;+name);</span><br><span class="line">            // 2.3 设置 请求头 setRequestHeader(&apos;key&apos;:&apos;value&apos;)</span><br><span class="line">                // get方式不需要设置请求头</span><br><span class="line">                // post需要设置 Content-Type:application/x-www-form-urlencoded</span><br><span class="line">            // 2.4 设置 请求体:发送请求  send(参数：key=value&amp;key=value)</span><br><span class="line">                // 如果有参数，post应该在这个位置来传递参数</span><br><span class="line">                // 对于 get请求不需要在这个位置来传递参数</span><br><span class="line">            xhr.send(null);</span><br><span class="line"></span><br><span class="line">            xhr.onreadystatechange = function()&#123;</span><br><span class="line">                if(xhr.status == 200 &amp;&amp; xhr.readyState == 4)&#123;</span><br><span class="line">                    console.log(xhr.responseText);</span><br><span class="line">                    console.log(&quot;-----------&quot;);</span><br><span class="line">                    document.querySelector(&quot;.showmsg&quot;).innerHTML = xhr.responseText;;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">    &lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
-<pre><code>+ **post请求**
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">	&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;</span><br><span class="line">    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;ie=edge&quot;&gt;</span><br><span class="line">    &lt;link rel=&quot;stylesheet&quot; href=&quot;./form.css&quot;&gt;</span><br><span class="line">    &lt;title&gt;Document&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;form action=&quot;./register.php&quot; method=&quot;post&quot;&gt;     </span><br><span class="line">        &lt;span id=&quot;msg&quot;&gt;aaa&lt;/span&gt;  </span><br><span class="line">        用户名：&lt;input type=&quot;text&quot; name=&quot;username&quot; id=&quot;username&quot;&gt;</span><br><span class="line">        昵称：&lt;input type=&quot;text&quot; name=&quot;nickname&quot; &gt;</span><br><span class="line">        密码： &lt;input type=&quot;password&quot; name=&quot;password&quot; &gt;   </span><br><span class="line">        &lt;input type=&quot;submit&quot; value=&quot;注册&quot;&gt;</span><br><span class="line">    &lt;/form&gt;</span><br><span class="line">    &lt;div class=&quot;showmsg&quot;&gt;&lt;/div&gt;</span><br><span class="line">    &lt;script&gt;</span><br><span class="line">        document.querySelector(&quot;#username&quot;).onblur = function()&#123;</span><br><span class="line">            // 1.获取用户数据</span><br><span class="line">            var name = this.value;</span><br><span class="line">            // 2. 让异步对象发送post请求</span><br><span class="line">            // 2.1 创建异步对象</span><br><span class="line">            var xhr = new XMLHttpRequest();</span><br><span class="line">            // 2.2 设置请求行 open(请求方式，请求url)</span><br><span class="line">                // 1.get 需要在url后面拼接参数(如果有参数)</span><br><span class="line">                // 2.post请求不需要拼接参数</span><br><span class="line">            xhr.open(&quot;post&quot;,&quot;validate.php&quot;);</span><br><span class="line">            // 2.3 设置请求头:setRequestHeader()</span><br><span class="line">                // 1.get不需要设置</span><br><span class="line">                // 2.post需要设置请求头：Content-Type:application/x-www-form-urlencoded</span><br><span class="line">            xhr.setRequestHeader(&quot;Content-Type&quot;,&quot;application/x-www-form-urlencoded&quot;);.如果没有设置，参数无法正确的传递到服务器(本质上说，如果没有参数，也不一定需要设置，不会影响请求的发送)</span><br><span class="line">            // 2.4 设置请求体 send()</span><br><span class="line">                // 1.get的参数在url拼接了，所以不需要在这个函数中设置</span><br><span class="line">                // 2.post的参数在这个函数中设置(如果有参数)</span><br><span class="line">            xhr.send(&quot;username=&quot;+name);</span><br><span class="line"></span><br><span class="line">            // 3.让异步对象接收服务器的响应数据</span><br><span class="line">            // 一个成功的响应有两个条件：1.服务器成功响应了  2.异步对象的响应状态为4(数据解析完毕可以使用了)</span><br><span class="line">            // 当异步对象的响应状态发生改变的时候，会触发一个事件：onreadystatechange</span><br><span class="line">            xhr.onreadystatechange = function()&#123;</span><br><span class="line">                // 判断服务器是否响应      判断异步对象的响应状态</span><br><span class="line">                if(xhr.status == 200 &amp;&amp; xhr.readyState == 4)&#123;</span><br><span class="line">                    document.querySelector(&quot;.showmsg&quot;).innerHTML = xhr.responseText;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;;</span><br><span class="line">    &lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
-</code></pre><hr>
-<h1 id="7-总结"><a href="#7-总结" class="headerlink" title="7.总结"></a>7.总结</h1><ul>
-<li><p>对ajax的使用做一个总结：</p>
-<ul>
-<li><p><strong>ajax的使用步骤：</strong></p>
-<ul>
-<li>创建XMLHttp</li>
-<li>[post方法设置请求头，get不用]</li>
-<li>使用open()和send()方法发起异步请求</li>
-<li>在onreadystatechange事件中接受服务器响应</li>
-</ul>
-</li>
-<li><p><strong>注意点：</strong></p>
-<ul>
-<li>post请求要设置请求头，get不用</li>
-<li>使用post方法时，send()要传递查询参数字符串，get不用传递参数，或者传一个null</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/12/10/js-ajax/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1048,109 +938,14 @@
 
       
         
-          
-            <a id="more"></a>
-<h1 id="1-概述"><a href="#1-概述" class="headerlink" title="1.概述"></a>1.概述</h1><h5 id="本文总结js中字符串的常用方法，包含es6中的字符串操作，作为查询文档"><a href="#本文总结js中字符串的常用方法，包含es6中的字符串操作，作为查询文档" class="headerlink" title="本文总结js中字符串的常用方法，包含es6中的字符串操作，作为查询文档"></a>本文总结js中字符串的常用方法，包含es6中的字符串操作，作为查询文档</h5><hr>
-<h1 id="2-总结"><a href="#2-总结" class="headerlink" title="2.总结"></a>2.总结</h1><table>
-<thead>
-<tr>
-<th style="text-align:left">序号</th>
-<th style="text-align:left">方法名</th>
-<th style="text-align:left">方法描述</th>
-<th style="text-align:left">参数</th>
-<th style="text-align:left">返回值</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">1</td>
-<td style="text-align:left">charAt()</td>
-<td style="text-align:left">查找字符串给定位置的字符</td>
-<td style="text-align:left">一个整数</td>
-<td style="text-align:left">返回给定位置的单个字符</td>
-</tr>
-<tr>
-<td style="text-align:left">2</td>
-<td style="text-align:left">concat()</td>
-<td style="text-align:left">字符串拼接</td>
-<td style="text-align:left">要拼接的字符串</td>
-<td style="text-align:left">返回拼接好的<strong><em>新的</em></strong>字符串</td>
-</tr>
-<tr>
-<td style="text-align:left">3</td>
-<td style="text-align:left">indexOf()</td>
-<td style="text-align:left">返回字符串中检索指定字符第一次出现的位置</td>
-<td style="text-align:left">查询子字符串</td>
-<td style="text-align:left">返回索引值</td>
-</tr>
-<tr>
-<td style="text-align:left">4</td>
-<td style="text-align:left">lastIndexOf()</td>
-<td style="text-align:left">在字符串末尾开始查找字符串出现的位置</td>
-<td style="text-align:left">查询子字符串</td>
-<td style="text-align:left">返回索引值</td>
-</tr>
-<tr>
-<td style="text-align:left">5</td>
-<td style="text-align:left">replace()</td>
-<td style="text-align:left">字符串替换</td>
-<td style="text-align:left">两个参数：第一个为要替换的字符串，第二个为替换字符串</td>
-<td style="text-align:left">返回<strong><em>新的</em></strong>替换后的字符串</td>
-</tr>
-<tr>
-<td style="text-align:left">6</td>
-<td style="text-align:left">slice()</td>
-<td style="text-align:left">字符串提取</td>
-<td style="text-align:left">两个参数：第一个为起始位置，第二个结束位置</td>
-<td style="text-align:left">返回<strong><em>新的</em></strong>截取的字符串</td>
-</tr>
-<tr>
-<td style="text-align:left">7</td>
-<td style="text-align:left">split()</td>
-<td style="text-align:left">把一个字符串分割成字符串数组:</td>
-<td style="text-align:left">两个参数，都为可选参数，第一个为分隔符，第二个为一个整数，表示分割的片段的数量</td>
-<td style="text-align:left">返回字符串数组</td>
-</tr>
-<tr>
-<td style="text-align:left">8</td>
-<td style="text-align:left">substr()</td>
-<td style="text-align:left">提取子字符串:</td>
-<td style="text-align:left">两个参数，开始索引和结束索引</td>
-<td style="text-align:left">返回子字符串</td>
-</tr>
-<tr>
-<td style="text-align:left">9</td>
-<td style="text-align:left">substring()</td>
-<td style="text-align:left">提取子字符串:</td>
-<td style="text-align:left">两个参数，开始索引和截取长度</td>
-<td style="text-align:left">返回子字符串</td>
-</tr>
-</tbody>
-</table>
-<ul>
-<li><h3 id="2-1-charAt-代码演示"><a href="#2-1-charAt-代码演示" class="headerlink" title="2.1 charAt()代码演示"></a>2.1 charAt()代码演示</h3><p>  查询某个索引位置上的字符</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var str = &quot;hello&quot;;</span><br><span class="line">console.log(str.charAt(1)); //e</span><br></pre></td></tr></table></figure>
-</li>
-<li><h3 id="2-2-concat-代码演示"><a href="#2-2-concat-代码演示" class="headerlink" title="2.2 concat()代码演示"></a>2.2 concat()代码演示</h3><p>  字符串拼接，返回的是一个新的字符串。使用“+”连接字符串也可以实现字符串拼接</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var str1 = &quot;hello&quot;;</span><br><span class="line">var newStr = str1.concat(&quot;-world&quot;);  //可以用&quot;,&quot;分割，拼接多个字符串</span><br><span class="line">console.log(newStr); //hello-world</span><br></pre></td></tr></table></figure>
-</li>
-<li><h3 id="2-3-indexOf-和lastIndexOf-代码演示"><a href="#2-3-indexOf-和lastIndexOf-代码演示" class="headerlink" title="2.3 indexOf()和lastIndexOf()代码演示"></a>2.3 indexOf()和lastIndexOf()代码演示</h3><p>  这两个方法都可以接收第二个参数，即开始查询的起始索引值</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">var str = &quot;hello world&quot;;</span><br><span class="line">var index1 = str.indexOf(&quot;o&quot;);</span><br><span class="line">var lastIndex = str.lastIndexOf(&quot;o&quot;);</span><br><span class="line">console.log(index1);  //o第一次出现在索引为4的位置</span><br><span class="line">console.log(lastIndex);  //o最后一次出现在索引为7的位置</span><br><span class="line">    </span><br><span class="line">var index2 = str.indexOf(&quot;w&quot;);</span><br><span class="line">console.log(index2); //w第一次出现在索引为6的位置，可以看出空格也算一个字符</span><br><span class="line"></span><br><span class="line">var index3 = str.indexOf(&quot;z&quot;);</span><br><span class="line">console.log(index3); //-1,没有则返回-1</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p><strong>拓展</strong>：利用indexOf()和循环查找出字符串中子字符串的出现的总次数和全部的索引<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">// indexOf拓展</span><br><span class="line">   var str = &quot;absdansdndass&quot;;</span><br><span class="line">   var positions = [];</span><br><span class="line">   var pos = str.indexOf(&quot;a&quot;);</span><br><span class="line"></span><br><span class="line">   while(pos != -1)&#123;</span><br><span class="line">       positions.push(pos);</span><br><span class="line">       pos = str.indexOf(&quot;a&quot;,pos+1);</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   console.log(positions);  //(3) [0, 4, 10]</span><br></pre></td></tr></table></figure></p>
-<ul>
-<li><h3 id="★2-4-replace-代码演示"><a href="#★2-4-replace-代码演示" class="headerlink" title="★2.4 replace()代码演示"></a>★2.4 replace()代码演示</h3><p>  replace()方法接收两个参数，使用第二个参数替换目标字符串中的第一个参数</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var str = &quot;hello world&quot;;</span><br><span class="line">var newStr = str.replace(&quot;world&quot;,&quot;littlebro&quot;);</span><br><span class="line">console.log(newStr);</span><br></pre></td></tr></table></figure>
-</li>
-<li><h3 id="★2-5-slice-代码演示"><a href="#★2-5-slice-代码演示" class="headerlink" title="★2.5 slice()代码演示"></a>★2.5 slice()代码演示</h3><p>  slice(start, end) 方法可提取字符串的某个部分，并以新的字符串返回被提取的部分.<br>  如果是负数，则该参数规定的是从字符串的尾部开始算起的位置。也就是说，-1 指字符串的最后一个字符，-2 指倒数第二个字符</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var str=&quot;Hello world!&quot;;</span><br><span class="line">var n=str.slice(3);</span><br><span class="line">console.log(n);  //lo world!</span><br></pre></td></tr></table></figure>
-</li>
-<li><h3 id="★2-6-splite-代码演示"><a href="#★2-6-splite-代码演示" class="headerlink" title="★2.6 splite()代码演示"></a>★2.6 splite()代码演示</h3><p>  split() 方法用于把一个字符串分割成字符串数组.<br>  如果把空字符串 (“”) 用作 separator，那么 stringObject 中的每个字符之间都会被分割.<br>  split() 方法不改变原始字符串</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var str = &quot;How are you&quot;;</span><br><span class="line">var n = str.split(&quot; &quot;);</span><br><span class="line">console.log(n);  //[&quot;How&quot;,&quot;are&quot;,&quot;you&quot;]</span><br></pre></td></tr></table></figure></li>
-</ul>
-
-          
+          <h1 id="1-概述"><a href="#1-概述" class="headerlink" title="1.概述"></a>1.概述</h1><h5 id="本文总结js中字符串的常用方法，包含es6中的字符串操作，作为查询文档"><a href="#本文总结js中字符串的常用方法，包含es6中的字符串操作，作为查询文档" class="headerlink" title="本文总结js中字符串的常用方法，包含es6中的字符串操作，作为查询文档"></a>本文总结js中字符串的常用方法，包含es6中的字符串操作，作为查询文档</h5>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/12/04/js字符串常用方法总结-包含es6/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1289,22 +1084,14 @@
 
       
         
-          
-            <a id="more"></a>
-<h1 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h1><h5 id="本文只罗列使用Hexo搭建个人博客的步骤，每个步骤的详细操作都会有一个链接指向单独的一篇文章。"><a href="#本文只罗列使用Hexo搭建个人博客的步骤，每个步骤的详细操作都会有一个链接指向单独的一篇文章。" class="headerlink" title="本文只罗列使用Hexo搭建个人博客的步骤，每个步骤的详细操作都会有一个链接指向单独的一篇文章。"></a>本文只罗列使用Hexo搭建个人博客的步骤，每个步骤的详细操作都会有一个链接指向单独的一篇文章。</h5><h5 id="如果你对使用Hexo搭建个人博客感兴趣，可以参考本文罗列出的这一系列文章来搭建自己的博客"><a href="#如果你对使用Hexo搭建个人博客感兴趣，可以参考本文罗列出的这一系列文章来搭建自己的博客" class="headerlink" title="如果你对使用Hexo搭建个人博客感兴趣，可以参考本文罗列出的这一系列文章来搭建自己的博客"></a>如果你对使用Hexo搭建个人博客感兴趣，可以参考本文罗列出的这一系列文章来搭建自己的博客</h5><hr>
-<h1 id="步骤如下："><a href="#步骤如下：" class="headerlink" title="步骤如下："></a>步骤如下：</h1><p><strong>如果你是小白，按照以下步骤一步步进行即可完成，如果你已经有基础了，可以选择性的查看</strong></p>
-<ol>
-<li>安装hexo,本地测试（自己在本地访问）</li>
-<li>注册github账号，创建代码仓库</li>
-<li>修改配置文件，将代码托管到github,实现通过github服务访问（现在人人都可以访问了）</li>
-<li>下载安装喜欢的主题，给博客换个样子</li>
-<li>购买域名并进行域名解析（现在有自己的个性域名了，不用通过github提供的服务地址访问了）</li>
-<li>修改主题配置文件，把想要或者不想要的模块都安排的明明白白</li>
-<li>可以专心写文章了，先学习一下markdown语法吧</li>
-<li>写自己的第一篇文章并发表</li>
-</ol>
-
-          
+          <h1 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h1><h5 id="本文只罗列使用Hexo搭建个人博客的步骤，每个步骤的详细操作都会有一个链接指向单独的一篇文章。"><a href="#本文只罗列使用Hexo搭建个人博客的步骤，每个步骤的详细操作都会有一个链接指向单独的一篇文章。" class="headerlink" title="本文只罗列使用Hexo搭建个人博客的步骤，每个步骤的详细操作都会有一个链接指向单独的一篇文章。"></a>本文只罗列使用Hexo搭建个人博客的步骤，每个步骤的详细操作都会有一个链接指向单独的一篇文章。</h5><h5 id="如果你对使用Hexo搭建个人博客感兴趣，可以参考本文罗列出的这一系列文章来搭建自己的博客"><a href="#如果你对使用Hexo搭建个人博客感兴趣，可以参考本文罗列出的这一系列文章来搭建自己的博客" class="headerlink" title="如果你对使用Hexo搭建个人博客感兴趣，可以参考本文罗列出的这一系列文章来搭建自己的博客"></a>如果你对使用Hexo搭建个人博客感兴趣，可以参考本文罗列出的这一系列文章来搭建自己的博客</h5>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/11/24/hexo搭建博客步骤总览/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
