@@ -87,14 +87,14 @@
 <meta property="og:site_name" content="littlebro_HLE">
 <meta property="og:description" content="1.promise是什么 promise可以做如下的理解： promise主要用于异步计算 可以将异步操作队列化，使其能按照期望的顺序执行，返回符合预期的结果 可以在对象之间传递和操作promise，帮助我们处理队列">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2018/12/10/es6中的promise/es6中的promise/status.png">
-<meta property="og:image" content="http://yoursite.com/2018/12/10/es6中的promise/es6中的promise/fs存在的问题.png">
-<meta property="og:image" content="http://yoursite.com/2018/12/10/es6中的promise/es6中的promise/promise改进.png">
-<meta property="og:updated_time" content="2018-12-17T13:09:55.473Z">
+<meta property="og:image" content="http://yoursite.com/2018/12/10/es6中的promise/2018/12/10/es6中的promise/status.png">
+<meta property="og:image" content="http://yoursite.com/2018/12/10/es6中的promise/2018/12/10/es6中的promise/fs存在的问题.png">
+<meta property="og:image" content="http://yoursite.com/2018/12/10/es6中的promise/2018/12/10/es6中的promise/promise改进.png">
+<meta property="og:updated_time" content="2018-12-17T13:30:45.867Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="es6中的promise">
 <meta name="twitter:description" content="1.promise是什么 promise可以做如下的理解： promise主要用于异步计算 可以将异步操作队列化，使其能按照期望的顺序执行，返回符合预期的结果 可以在对象之间传递和操作promise，帮助我们处理队列">
-<meta name="twitter:image" content="http://yoursite.com/2018/12/10/es6中的promise/es6中的promise/status.png">
+<meta name="twitter:image" content="http://yoursite.com/2018/12/10/es6中的promise/2018/12/10/es6中的promise/status.png">
 
 
 
@@ -364,7 +364,7 @@
 </li>
 </ul>
 <hr>
-<h2 id="3-promise的三种状态"><a href="#3-promise的三种状态" class="headerlink" title="3.promise的三种状态"></a>3.promise的三种状态</h2><p><img src="/2018/12/10/es6中的promise/./es6中的promise/status.png" alt="状态改变"></p>
+<h2 id="3-promise的三种状态"><a href="#3-promise的三种状态" class="headerlink" title="3.promise的三种状态"></a>3.promise的三种状态</h2><img src="/2018/12/10/es6中的promise/2018/12/10/es6中的promise/status.png" title="三种状态">
 <ul>
 <li>初始化promise实例后，状态为<strong>pending</strong>;</li>
 <li>执行执行器中的耗时操作代码后，</li>
@@ -393,10 +393,12 @@
 <li><p><strong>代码如下：</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">let fs = require(&quot;fs&quot;);</span><br><span class="line"></span><br><span class="line">fs.readFile(&quot;./a.txt&quot;,&quot;utf8&quot;,function(err,data)&#123;</span><br><span class="line">    if(err)&#123;</span><br><span class="line">        console.log(&quot;读取文件失败&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    console.log(data);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">fs.readFile(&quot;./b.txt&quot;,&quot;utf8&quot;,function(err,data)&#123;</span><br><span class="line">    if(err)&#123;</span><br><span class="line">        console.log(&quot;读取文件失败&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    console.log(data);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 </li>
-<li><p><strong>打印结果如下：</strong><br><img src="/2018/12/10/es6中的promise/./es6中的promise/fs存在的问题.png" alt="异步函数存在的问题"></p>
+<li><p><strong>打印结果如下：</strong></p>
+<img src="/2018/12/10/es6中的promise/2018/12/10/es6中的promise/fs存在的问题.png" title="异步函数存在的问题">
 </li>
-<li><p><strong>代码小结</strong></p>
-<blockquote>
+</ul>
+<ul>
+<li><strong>代码小结</strong><blockquote>
 <p>通过上述的代码和打印结果可以发现，异步方法的执行结果获取的顺序具有不确定性。<br>上面同一段代码，反复执行，就会出现先a后b,或先b后a的情况<br><strong>此时，有需求要让顺序确定下来，其实就是异步函数的序列化，这就是要使用promise的原因了</strong></p>
 </blockquote>
 </li>
@@ -405,10 +407,12 @@
 <li><p><strong>代码如下：</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">let fs = require(&quot;fs&quot;);</span><br><span class="line"></span><br><span class="line">function read(url)&#123;</span><br><span class="line">    return new Promise((resolve,reject)=&gt;&#123;</span><br><span class="line">        fs.readFile(url,&quot;utf8&quot;,function(err,data)&#123;</span><br><span class="line">            if(err)&#123;</span><br><span class="line">                reject();</span><br><span class="line">            &#125;</span><br><span class="line">            resolve(data);</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">read(&quot;./a.txt&quot;)</span><br><span class="line">    .then((data)=&gt;&#123;</span><br><span class="line">        console.log(data);</span><br><span class="line">        return read(&quot;./b.txt&quot;);</span><br><span class="line">    &#125;,()=&gt;&#123;&#125;)</span><br><span class="line">    .then((data)=&gt;&#123;</span><br><span class="line">        console.log(data);</span><br><span class="line">    &#125;,()=&gt;&#123;&#125;)</span><br></pre></td></tr></table></figure>
 </li>
-<li><p><strong>打印结果和代码解读</strong><br><img src="/2018/12/10/es6中的promise/./es6中的promise/promise改进.png" alt="promise改进"></p>
+<li><p><strong>打印结果和代码解读</strong></p>
+<img src="/2018/12/10/es6中的promise/2018/12/10/es6中的promise/promise改进.png" title="promise改进.png">
 </li>
-<li><p><strong>代码小结</strong></p>
-<blockquote>
+</ul>
+<ul>
+<li><strong>代码小结</strong><blockquote>
 <p>1.从方法的封装就可以看出，正如promise的定义一样，promise可以看成一个<strong>容器</strong><br>2.promise对象都有一个then()方法，他的两个参数就是两个回调函数<br>3.then()中的两个回调函数都接受Promise对象传出的值作为参数。例如上面代码中的“data”<br>4.链式调用原理就是返回promise对象，promise对象又有then()方法</p>
 </blockquote>
 </li>
