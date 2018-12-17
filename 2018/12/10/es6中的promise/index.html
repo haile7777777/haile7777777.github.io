@@ -87,10 +87,14 @@
 <meta property="og:site_name" content="littlebro_HLE">
 <meta property="og:description" content="1.promise是什么 promise可以做如下的理解： promise主要用于异步计算 可以将异步操作队列化，使其能按照期望的顺序执行，返回符合预期的结果 可以在对象之间传递和操作promise，帮助我们处理队列">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-12-13T10:02:52.123Z">
+<meta property="og:image" content="http://yoursite.com/2018/12/10/es6中的promise/es6中的promise/status.png">
+<meta property="og:image" content="http://yoursite.com/2018/12/10/es6中的promise/es6中的promise/fs存在的问题.png">
+<meta property="og:image" content="http://yoursite.com/2018/12/10/es6中的promise/es6中的promise/promise改进.png">
+<meta property="og:updated_time" content="2018-12-17T13:09:55.473Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="es6中的promise">
 <meta name="twitter:description" content="1.promise是什么 promise可以做如下的理解： promise主要用于异步计算 可以将异步操作队列化，使其能按照期望的顺序执行，返回符合预期的结果 可以在对象之间传递和操作promise，帮助我们处理队列">
+<meta name="twitter:image" content="http://yoursite.com/2018/12/10/es6中的promise/es6中的promise/status.png">
 
 
 
@@ -345,7 +349,7 @@
         <h2 id="1-promise是什么"><a href="#1-promise是什么" class="headerlink" title="1.promise是什么"></a>1.promise是什么</h2><ul>
 <li>promise可以做如下的理解：<ul>
 <li>promise主要用于异步计算</li>
-<li>可以将异步操作队列化，使其能按照期望的顺序执行，返回符合预期的结果</li>
+<li>可以将<strong>异步操作队列化</strong>，使其能按照期望的顺序执行，返回符合预期的结果</li>
 <li>可以在对象之间传递和操作promise，帮助我们处理队列<a id="more"></a>
 </li>
 </ul>
@@ -360,13 +364,56 @@
 </li>
 </ul>
 <hr>
-<h2 id="3-promise的三种状态"><a href="#3-promise的三种状态" class="headerlink" title="3.promise的三种状态"></a>3.promise的三种状态</h2><ul>
+<h2 id="3-promise的三种状态"><a href="#3-promise的三种状态" class="headerlink" title="3.promise的三种状态"></a>3.promise的三种状态</h2><p><img src="/2018/12/10/es6中的promise/./es6中的promise/status.png" alt="状态改变"></p>
+<ul>
 <li>初始化promise实例后，状态为<strong>pending</strong>;</li>
-<li>执行执行器中的耗时操作代码后，成功则状态为fulfilled；</li>
-<li><p>执行失败，则状态为rejected</p>
-<p>  <strong>一旦promise实例的状态改变就不能再变化，是不可逆的</strong><br>  <strong>promis实例的状态改变后就会立即触发then中的响应函数</strong></p>
+<li>执行执行器中的耗时操作代码后，</li>
+<li>执行成功, 则状态为fulfilled；</li>
+<li>执行失败，则状态为rejected</li>
+</ul>
+<blockquote>
+<p><strong>一旦promise实例的状态改变就不能再变化，是不可逆的</strong><br><strong>promis实例的状态改变后就会立即触发then中的响应函数</strong></p>
+</blockquote>
+<hr>
+<h2 id="4-promise的then"><a href="#4-promise的then" class="headerlink" title="4.promise的then"></a>4.promise的then</h2><ul>
+<li>Promise实例生成以后，可以用then方法分别指定resolved状态和rejected状态的回调函数。</li>
+<li>then方法的两个参数，两个参数都为一个回调函数，<ul>
+<li>第一个回调函数是promise状态为resolved时调用</li>
+<li>第二个回调函数是promise状态为rejected时调用<blockquote>
+<p><strong>这两个回调函数都接受promise对象传出的值作为参数</strong></p>
+</blockquote>
 </li>
 </ul>
+</li>
+</ul>
+<h5 id="4-1-调用resolve或reject来执行对应的回调函数"><a href="#4-1-调用resolve或reject来执行对应的回调函数" class="headerlink" title="4.1 调用resolve或reject来执行对应的回调函数"></a>4.1 调用resolve或reject来执行对应的回调函数</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">new  Promise((resolve, reject) =&gt; &#123;</span><br><span class="line">	console.log(1);</span><br><span class="line">	resolve();//调用resolve会走到then的成功回调</span><br><span class="line">	//reject();//调用resolve会走到then的失败回调</span><br><span class="line">&#125;).then(</span><br><span class="line">	() =&gt; &#123;</span><br><span class="line">		console.log(&apos;成功&apos;)  //1这个回调被调用执行，打印成功</span><br><span class="line">	&#125;</span><br><span class="line">	, () =&gt; &#123;</span><br><span class="line">		console.log(&apos;失败&apos;)</span><br><span class="line">	&#125;)</span><br></pre></td></tr></table></figure>
+<h5 id="4-2-不调用resolve和reject，就不会改变promise的状态，对应的回调函数也不会执行"><a href="#4-2-不调用resolve和reject，就不会改变promise的状态，对应的回调函数也不会执行" class="headerlink" title="4.2 不调用resolve和reject，就不会改变promise的状态，对应的回调函数也不会执行"></a>4.2 不调用resolve和reject，就不会改变promise的状态，对应的回调函数也不会执行</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">new  Promise((resolve, reject) =&gt; &#123;</span><br><span class="line">	console.log(1);  //只打印1，后续回调不执行</span><br><span class="line">&#125;).then(</span><br><span class="line">	() =&gt; &#123;</span><br><span class="line">		console.log(&apos;成功&apos;)</span><br><span class="line">	&#125;</span><br><span class="line">	, () =&gt; &#123;</span><br><span class="line">		console.log(&apos;失败&apos;)</span><br><span class="line">	&#125;)</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="5-小案例理解promise如何解决回调地狱"><a href="#5-小案例理解promise如何解决回调地狱" class="headerlink" title="5.小案例理解promise如何解决回调地狱"></a>5.小案例理解promise如何解决回调地狱</h2><h5 id="5-1-通过案例理解为什么要用promise"><a href="#5-1-通过案例理解为什么要用promise" class="headerlink" title="5.1 通过案例理解为什么要用promise"></a>5.1 通过案例理解为什么要用promise</h5><ul>
+<li><p><strong>代码如下：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">let fs = require(&quot;fs&quot;);</span><br><span class="line"></span><br><span class="line">fs.readFile(&quot;./a.txt&quot;,&quot;utf8&quot;,function(err,data)&#123;</span><br><span class="line">    if(err)&#123;</span><br><span class="line">        console.log(&quot;读取文件失败&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    console.log(data);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">fs.readFile(&quot;./b.txt&quot;,&quot;utf8&quot;,function(err,data)&#123;</span><br><span class="line">    if(err)&#123;</span><br><span class="line">        console.log(&quot;读取文件失败&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    console.log(data);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>打印结果如下：</strong><br><img src="/2018/12/10/es6中的promise/./es6中的promise/fs存在的问题.png" alt="异步函数存在的问题"></p>
+</li>
+<li><p><strong>代码小结</strong></p>
+<blockquote>
+<p>通过上述的代码和打印结果可以发现，异步方法的执行结果获取的顺序具有不确定性。<br>上面同一段代码，反复执行，就会出现先a后b,或先b后a的情况<br><strong>此时，有需求要让顺序确定下来，其实就是异步函数的序列化，这就是要使用promise的原因了</strong></p>
+</blockquote>
+</li>
+</ul>
+<h5 id="5-2-通过promise改进上面代码"><a href="#5-2-通过promise改进上面代码" class="headerlink" title="5.2 通过promise改进上面代码"></a>5.2 通过promise改进上面代码</h5><ul>
+<li><p><strong>代码如下：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">let fs = require(&quot;fs&quot;);</span><br><span class="line"></span><br><span class="line">function read(url)&#123;</span><br><span class="line">    return new Promise((resolve,reject)=&gt;&#123;</span><br><span class="line">        fs.readFile(url,&quot;utf8&quot;,function(err,data)&#123;</span><br><span class="line">            if(err)&#123;</span><br><span class="line">                reject();</span><br><span class="line">            &#125;</span><br><span class="line">            resolve(data);</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">read(&quot;./a.txt&quot;)</span><br><span class="line">    .then((data)=&gt;&#123;</span><br><span class="line">        console.log(data);</span><br><span class="line">        return read(&quot;./b.txt&quot;);</span><br><span class="line">    &#125;,()=&gt;&#123;&#125;)</span><br><span class="line">    .then((data)=&gt;&#123;</span><br><span class="line">        console.log(data);</span><br><span class="line">    &#125;,()=&gt;&#123;&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>打印结果和代码解读</strong><br><img src="/2018/12/10/es6中的promise/./es6中的promise/promise改进.png" alt="promise改进"></p>
+</li>
+<li><p><strong>代码小结</strong></p>
+<blockquote>
+<p>1.从方法的封装就可以看出，正如promise的定义一样，promise可以看成一个<strong>容器</strong><br>2.promise对象都有一个then()方法，他的两个参数就是两个回调函数<br>3.then()中的两个回调函数都接受Promise对象传出的值作为参数。例如上面代码中的“data”<br>4.链式调用原理就是返回promise对象，promise对象又有then()方法</p>
+</blockquote>
+</li>
+</ul>
+<hr>
 
       
     </div>
@@ -543,7 +590,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-promise是什么"><span class="nav-number">1.</span> <span class="nav-text">1.promise是什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-基本用法"><span class="nav-number">2.</span> <span class="nav-text">2.基本用法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-promise的三种状态"><span class="nav-number">3.</span> <span class="nav-text">3.promise的三种状态</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-promise是什么"><span class="nav-number">1.</span> <span class="nav-text">1.promise是什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-基本用法"><span class="nav-number">2.</span> <span class="nav-text">2.基本用法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-promise的三种状态"><span class="nav-number">3.</span> <span class="nav-text">3.promise的三种状态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-promise的then"><span class="nav-number">4.</span> <span class="nav-text">4.promise的then</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#4-1-调用resolve或reject来执行对应的回调函数"><span class="nav-number">4.0.0.1.</span> <span class="nav-text">4.1 调用resolve或reject来执行对应的回调函数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-2-不调用resolve和reject，就不会改变promise的状态，对应的回调函数也不会执行"><span class="nav-number">4.0.0.2.</span> <span class="nav-text">4.2 不调用resolve和reject，就不会改变promise的状态，对应的回调函数也不会执行</span></a></li></ol></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#5-小案例理解promise如何解决回调地狱"><span class="nav-number">5.</span> <span class="nav-text">5.小案例理解promise如何解决回调地狱</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#5-1-通过案例理解为什么要用promise"><span class="nav-number">5.0.0.1.</span> <span class="nav-text">5.1 通过案例理解为什么要用promise</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-2-通过promise改进上面代码"><span class="nav-number">5.0.0.2.</span> <span class="nav-text">5.2 通过promise改进上面代码</span></a></li></ol></li></div>
             
 
           </div>
