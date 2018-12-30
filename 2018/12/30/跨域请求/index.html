@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/le-32.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/le-16.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="跨域,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="概述本文主要记录跨域问题的几种解决方案，后续会增加nginx方式解决跨域问题的方法">
+<meta name="keywords" content="跨域">
+<meta property="og:type" content="article">
+<meta property="og:title" content="跨域请求">
+<meta property="og:url" content="http://yoursite.com/2018/12/30/跨域请求/index.html">
+<meta property="og:site_name" content="littlebro_HLE">
+<meta property="og:description" content="概述本文主要记录跨域问题的几种解决方案，后续会增加nginx方式解决跨域问题的方法">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://s1.ax1x.com/2018/12/30/FfvORP.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/12/30/FfzzNj.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/12/30/FhSK81.png">
+<meta property="og:image" content="https://s1.ax1x.com/2018/12/30/FhSQv6.png">
+<meta property="og:updated_time" content="2018-12-30T06:56:06.572Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="跨域请求">
+<meta name="twitter:description" content="概述本文主要记录跨域问题的几种解决方案，后续会增加nginx方式解决跨域问题的方法">
+<meta name="twitter:image" content="https://s1.ax1x.com/2018/12/30/FfvORP.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/12/30/跨域请求/">
+
+
+
+
+
+  <title>跨域请求 | littlebro_HLE</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">littlebro_HLE</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/30/跨域请求/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="HLE_littlebro">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="littlebro_HLE">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">跨域请求</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-30T11:59:46+08:00">
+                2018-12-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/计算机网络/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机网络</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>本文主要记录跨域问题的几种解决方案，后续会增加nginx方式解决跨域问题的方法<br><a id="more"></a></p>
+<h1 id="实例代码"><a href="#实例代码" class="headerlink" title="实例代码"></a>实例代码</h1><p>首先放上演示代码</p>
+<ul>
+<li><p><strong>前端代码：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src=&quot;./jquery/jquery.min.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">    $(function()&#123;</span><br><span class="line">        $.ajax(&#123;</span><br><span class="line">            type:&quot;get&quot;,</span><br><span class="line">            url:&quot;source.php&quot;,</span><br><span class="line">            success:function (res) &#123;</span><br><span class="line">                let userTemp = &apos;&apos;;</span><br><span class="line">                let userInfo = JSON.parse(res);</span><br><span class="line">                for(var i=0;i&lt;userInfo.length;i++)&#123;</span><br><span class="line">                    userTemp += `</span><br><span class="line">                        &lt;ul class=&quot;userList&quot;&gt;</span><br><span class="line">                            &lt;h2&gt;user$&#123;i+1&#125;&lt;/h2&gt;</span><br><span class="line">                            &lt;li&gt;name---$&#123;userInfo[i].name&#125;&lt;/li&gt;</span><br><span class="line">                            &lt;li&gt;age---$&#123;userInfo[i].age&#125;&lt;/li&gt;</span><br><span class="line">                        &lt;/ul&gt;</span><br><span class="line"></span><br><span class="line">                    `</span><br><span class="line">                &#125;</span><br><span class="line">                $(&quot;body&quot;).html(userTemp);</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>source.php</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line">	$userInfo = array([&quot;name&quot;=&gt;&quot;hle&quot;,&quot;age&quot;=&gt;24],[&quot;name&quot;=&gt;&quot;hl1&quot;,&quot;age&quot;=&gt;24]);</span><br><span class="line"></span><br><span class="line">	echo json_encode($userInfo);</span><br><span class="line"></span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>同源访问下的效果：</strong><br><img src="https://s1.ax1x.com/2018/12/30/FfvORP.png" alt="FfvORP.png"></p>
+</li>
+</ul>
+<hr>
+<h1 id="服务器端解决跨域"><a href="#服务器端解决跨域" class="headerlink" title="服务器端解决跨域"></a>服务器端解决跨域</h1><p>通过在服务器端设置响应头，对来自不同域的请求允许访问本服务器上的资源</p>
+<ul>
+<li>header(“Access-Control-Allow-Origin:<em>“);  —  “</em>“表示对<strong>所有域</strong>的资源访问请求都允许</li>
+<li>header(“Access-Control-Allow-Origin:<a href="http://www.hle.com&quot;" target="_blank" rel="noopener">http://www.hle.com&quot;</a>)  —  表示对”<a href="http://www.hle.com&quot;这个**特定域**允许访问" target="_blank" rel="noopener">http://www.hle.com&quot;这个**特定域**允许访问</a></li>
+</ul>
+<p><strong>操作步骤如下：</strong></p>
+<ul>
+<li>首先，将source.php移动到另一个配置好的域下：<a href="http://www.day2.com/source.php" target="_blank" rel="noopener">http://www.day2.com/source.php</a></li>
+<li>使用原前端代码访问，结果如下：</li>
+</ul>
+<p><img src="https://s1.ax1x.com/2018/12/30/FfzzNj.png" alt="FfzzNj.png"></p>
+<ul>
+<li><p>添加响应头<br><img src="https://s1.ax1x.com/2018/12/30/FhSK81.png" alt="FhSK81.png"></p>
+</li>
+<li><p>添加后的效果<br><img src="https://s1.ax1x.com/2018/12/30/FhSQv6.png" alt="FhSQv6.png"></p>
+</li>
+</ul>
+<hr>
+<h1 id="jsonp实现跨域"><a href="#jsonp实现跨域" class="headerlink" title="jsonp实现跨域"></a>jsonp实现跨域</h1><h2 id="实现原理："><a href="#实现原理：" class="headerlink" title="实现原理："></a>实现原理：</h2><ul>
+<li><strong>前端</strong>：<ul>
+<li>前端定义一个对后台返回数据进行处理的函数</li>
+<li>动态生成一个script标签，通过src属性发起跨域请求，请求参数为定义好的处理函数名</li>
+</ul>
+</li>
+<li><p><strong>服务器端</strong></p>
+<ul>
+<li>接受这个函数名</li>
+<li>将要返回的数据以函数参数的形式与传过来的函数名凭借</li>
+<li>返回凭借好的字符串</li>
+</ul>
+</li>
+<li><p><strong>演示代码</strong></p>
+<ul>
+<li><strong>前端代码：</strong><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">//定义一个对返回数据进行处理的函数，函数其中一个参数为服务器返回数据</span><br><span class="line">   function test(data) &#123;</span><br><span class="line">       console.log(&quot;跨域请求数据：&quot;)</span><br><span class="line">       console.log(data)</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;script src=&quot;http://www.day2.com/source1.php?callback=test&quot;&gt;&lt;/script&gt;  //这里发起请求</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<pre><code>+ **后端代码：**
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line">$callback = $_GET[&quot;callback&quot;];  //接受前端定义的函数名</span><br><span class="line"></span><br><span class="line">$userInfo = json_encode(array([&quot;name&quot;=&gt;&quot;hle&quot;,&quot;age&quot;=&gt;24],[&quot;name&quot;=&gt;&quot;hl&quot;,&quot;age&quot;=&gt;24]));  //要返回的数据</span><br><span class="line"></span><br><span class="line">echo $callback.&apos;(&apos;.$userInfo.&apos;)&apos;;  //以前端调用的形式拼接函数名和返回数据</span><br><span class="line"></span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
++ **实现跨域请求**
+![FhPhY4.png](https://s1.ax1x.com/2018/12/30/FhPhY4.png)
+</code></pre><h2 id="简单的jsonp封装"><a href="#简单的jsonp封装" class="headerlink" title="简单的jsonp封装"></a>简单的jsonp封装</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">        function test(result)&#123;</span><br><span class="line">            console.log(result);</span><br><span class="line">        &#125;</span><br><span class="line">		</span><br><span class="line">        // 定义自己的ajax</span><br><span class="line">        var $ =&#123;</span><br><span class="line">            ajax:function(option)&#123;</span><br><span class="line">                var url = option.url;</span><br><span class="line">                var callback = option.callback;</span><br><span class="line">                var dataType = option.dataType;</span><br><span class="line">                // 当dataType为jsonp的时候我们需要发起一个跨域请求</span><br><span class="line">                if(dataType == &quot;jsonp&quot;)&#123;</span><br><span class="line">                    // 1.创建一个script标签</span><br><span class="line">                    var script = document.createElement(&quot;script&quot;);</span><br><span class="line">                    // 2.为script标签设置src属性，同时在src中传入之后需要拼接函数名称</span><br><span class="line">                    script.src = url +&quot;?callback=&quot;+callback;</span><br><span class="line">                    // 3.将生成的script标签添加到页面结构中</span><br><span class="line">                    document.body.appendChild(script);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">        </span><br><span class="line">		//测试</span><br><span class="line">        $.ajax(&#123;</span><br><span class="line">            type:&apos;get&apos;,</span><br><span class="line">            url:&apos;http://www.day2.com/source1.php&apos;,</span><br><span class="line">            callback:&apos;test&apos;,</span><br><span class="line">            dataType:&quot;jsonp&quot;</span><br><span class="line">        &#125;);</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/跨域/" rel="tag"># 跨域</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/28/js-字符串/" rel="next" title="js-字符串">
+                <i class="fa fa-chevron-left"></i> js-字符串
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.png" alt="HLE_littlebro">
+            
+              <p class="site-author-name" itemprop="name">HLE_littlebro</p>
+              <p class="site-description motion-element" itemprop="description">技术面前，一直都是小老弟</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实例代码"><span class="nav-number">2.</span> <span class="nav-text">实例代码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#服务器端解决跨域"><span class="nav-number">3.</span> <span class="nav-text">服务器端解决跨域</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#jsonp实现跨域"><span class="nav-number">4.</span> <span class="nav-text">jsonp实现跨域</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#实现原理："><span class="nav-number">4.1.</span> <span class="nav-text">实现原理：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#简单的jsonp封装"><span class="nav-number">4.2.</span> <span class="nav-text">简单的jsonp封装</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">HLE_littlebro</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
