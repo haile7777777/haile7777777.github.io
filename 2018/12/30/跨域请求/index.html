@@ -91,7 +91,7 @@
 <meta property="og:image" content="https://s1.ax1x.com/2018/12/30/FfzzNj.png">
 <meta property="og:image" content="https://s1.ax1x.com/2018/12/30/FhSK81.png">
 <meta property="og:image" content="https://s1.ax1x.com/2018/12/30/FhSQv6.png">
-<meta property="og:updated_time" content="2018-12-30T06:56:06.572Z">
+<meta property="og:updated_time" content="2018-12-30T07:26:15.477Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="跨域请求">
 <meta name="twitter:description" content="概述本文主要记录跨域问题的几种解决方案，后续会增加nginx方式解决跨域问题的方法">
@@ -401,6 +401,7 @@
 <pre><code>+ **后端代码：**
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line">$callback = $_GET[&quot;callback&quot;];  //接受前端定义的函数名</span><br><span class="line"></span><br><span class="line">$userInfo = json_encode(array([&quot;name&quot;=&gt;&quot;hle&quot;,&quot;age&quot;=&gt;24],[&quot;name&quot;=&gt;&quot;hl&quot;,&quot;age&quot;=&gt;24]));  //要返回的数据</span><br><span class="line"></span><br><span class="line">echo $callback.&apos;(&apos;.$userInfo.&apos;)&apos;;  //以前端调用的形式拼接函数名和返回数据</span><br><span class="line"></span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
 
+
 + **实现跨域请求**
 ![FhPhY4.png](https://s1.ax1x.com/2018/12/30/FhPhY4.png)
 </code></pre><h2 id="简单的jsonp封装"><a href="#简单的jsonp封装" class="headerlink" title="简单的jsonp封装"></a>简单的jsonp封装</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">        function test(result)&#123;</span><br><span class="line">            console.log(result);</span><br><span class="line">        &#125;</span><br><span class="line">		</span><br><span class="line">        // 定义自己的ajax</span><br><span class="line">        var $ =&#123;</span><br><span class="line">            ajax:function(option)&#123;</span><br><span class="line">                var url = option.url;</span><br><span class="line">                var callback = option.callback;</span><br><span class="line">                var dataType = option.dataType;</span><br><span class="line">                // 当dataType为jsonp的时候我们需要发起一个跨域请求</span><br><span class="line">                if(dataType == &quot;jsonp&quot;)&#123;</span><br><span class="line">                    // 1.创建一个script标签</span><br><span class="line">                    var script = document.createElement(&quot;script&quot;);</span><br><span class="line">                    // 2.为script标签设置src属性，同时在src中传入之后需要拼接函数名称</span><br><span class="line">                    script.src = url +&quot;?callback=&quot;+callback;</span><br><span class="line">                    // 3.将生成的script标签添加到页面结构中</span><br><span class="line">                    document.body.appendChild(script);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">        </span><br><span class="line">		//测试</span><br><span class="line">        $.ajax(&#123;</span><br><span class="line">            type:&apos;get&apos;,</span><br><span class="line">            url:&apos;http://www.day2.com/source1.php&apos;,</span><br><span class="line">            callback:&apos;test&apos;,</span><br><span class="line">            dataType:&quot;jsonp&quot;</span><br><span class="line">        &#125;);</span><br></pre></td></tr></table></figure>
@@ -442,6 +443,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/01/02/node基础/" rel="prev" title="node基础">
+                node基础 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -520,7 +525,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -531,7 +536,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -542,7 +547,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -595,7 +600,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

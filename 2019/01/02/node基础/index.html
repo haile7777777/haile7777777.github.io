@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="vue router,">
+  <meta name="keywords" content="node基础,">
 
 
 
@@ -79,18 +79,20 @@
 
 
 
-<meta name="description" content="1.概述本文主要记录和演示vue中router的使用，包括路由基础，动态路由，嵌套路由，编程式路由">
-<meta name="keywords" content="vue router">
+<meta name="description" content="概述本文主要记录node中基础模块的常用方法和特性，快速复习node基础">
+<meta name="keywords" content="node基础">
 <meta property="og:type" content="article">
-<meta property="og:title" content="vue router">
-<meta property="og:url" content="http://yoursite.com/2018/12/12/vue-router/index.html">
+<meta property="og:title" content="node基础">
+<meta property="og:url" content="http://yoursite.com/2019/01/02/node基础/index.html">
 <meta property="og:site_name" content="littlebro_HLE">
-<meta property="og:description" content="1.概述本文主要记录和演示vue中router的使用，包括路由基础，动态路由，嵌套路由，编程式路由">
+<meta property="og:description" content="概述本文主要记录node中基础模块的常用方法和特性，快速复习node基础">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-12-13T10:01:30.558Z">
+<meta property="og:image" content="https://s2.ax1x.com/2019/01/02/F50SxS.png">
+<meta property="og:updated_time" content="2019-01-01T16:40:10.368Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="vue router">
-<meta name="twitter:description" content="1.概述本文主要记录和演示vue中router的使用，包括路由基础，动态路由，嵌套路由，编程式路由">
+<meta name="twitter:title" content="node基础">
+<meta name="twitter:description" content="概述本文主要记录node中基础模块的常用方法和特性，快速复习node基础">
+<meta name="twitter:image" content="https://s2.ax1x.com/2019/01/02/F50SxS.png">
 
 
 
@@ -120,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/12/12/vue-router/">
+  <link rel="canonical" href="http://yoursite.com/2019/01/02/node基础/">
 
 
 
 
 
-  <title>vue router | littlebro_HLE</title>
+  <title>node基础 | littlebro_HLE</title>
   
 
 
@@ -253,7 +255,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/12/vue-router/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/02/node基础/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="HLE_littlebro">
@@ -270,7 +272,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">vue router</h1>
+          <h1 class="post-title" itemprop="name headline">node基础</h1>
         
 
         <div class="post-meta">
@@ -282,8 +284,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-12T09:30:15+08:00">
-                2018-12-12
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-02T00:05:07+08:00">
+                2019-01-02
               </time>
             
 
@@ -305,8 +307,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/vue/" itemprop="url" rel="index">
-                    <span itemprop="name">vue</span>
+                  <a href="/categories/node/" itemprop="url" rel="index">
+                    <span itemprop="name">node</span>
                   </a>
                 </span>
 
@@ -342,13 +344,24 @@
       
 
       
-        <h2 id="1-概述"><a href="#1-概述" class="headerlink" title="1.概述"></a>1.概述</h2><p>本文主要记录和演示vue中router的使用，包括<strong>路由基础</strong>，<strong>动态路由</strong>，<strong>嵌套路由</strong>，<strong>编程式路由</strong></p>
-<a id="more"></a>
+        <h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>本文主要记录node中基础模块的常用方法和特性，快速复习node基础<br><a id="more"></a></p>
+<h1 id="http模块快速搭建服务器"><a href="#http模块快速搭建服务器" class="headerlink" title="http模块快速搭建服务器"></a>http模块快速搭建服务器</h1><ul>
+<li>引入http模块</li>
+<li>使用http的createServer()方法创建服务器</li>
+<li>监听端口<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">const http = require(&apos;http&apos;);</span><br><span class="line"></span><br><span class="line">http.createServer(function(req,res)&#123;</span><br><span class="line"></span><br><span class="line">    res.writeHead(200,&#123;&quot;Content-Type&quot;:&quot;text/html;charset=utf-8&quot;&#125;)  //设置响应头，字符集</span><br><span class="line">    res.end(&quot;node复习&quot;);  //返回输出信息</span><br><span class="line"></span><br><span class="line">&#125;).listen(3000)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
 <hr>
-<h2 id="2-路由基础"><a href="#2-路由基础" class="headerlink" title="2.路由基础"></a>2.路由基础</h2><p><strong>2.1 路由的基本组成分为两个部分：</strong></p>
+<h1 id="URL模块"><a href="#URL模块" class="headerlink" title="URL模块"></a>URL模块</h1><h2 id="url-parse-方法-—-解析url为一个对象"><a href="#url-parse-方法-—-解析url为一个对象" class="headerlink" title="url.parse()方法 —  解析url为一个对象"></a>url.parse()方法 —  解析url为一个对象</h2><ul>
+<li><p><strong>使用url.parse()方法解析req.url</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">const http = require(&apos;http&apos;);</span><br><span class="line">const url = require(&apos;url&apos;)</span><br><span class="line"></span><br><span class="line">http.createServer(function (req, res) &#123;</span><br><span class="line"></span><br><span class="line">    res.writeHead(200, &#123; &quot;Content-Type&quot;: &quot;text/html;charset=utf-8&quot; &#125;)</span><br><span class="line"></span><br><span class="line">    //输入http://localhost:3000/news?aid=123   拿到aid</span><br><span class="line">    if (req.url != &apos;/favicon.ico&apos;) &#123;</span><br><span class="line"></span><br><span class="line">        var result = url.parse(req.url, true);  //第二个参数true是将query查询参数转换成对象的形式</span><br><span class="line">        console.log(result.query.aid);</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    res.end(&quot;node复习&quot;)</span><br><span class="line"></span><br><span class="line">    // 输入http://localhost:8001/news?aid=123&amp;cid=3   拿到aid 和cid</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;).listen(3000)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>解析效果</strong></p>
 <ul>
-<li><router-link to=""></router-link> –负责跳转，相当于<a href=""></a></li>
-<li><router-view></router-view>  –负责渲染</li>
+<li>左边方框是没有第二个参数true的解析结果</li>
+<li>右边是有第二个参数true的解析结果<br><img src="https://s2.ax1x.com/2019/01/02/F50SxS.png" alt="F50SxS.png"></li>
+</ul>
+</li>
 </ul>
 
       
@@ -367,7 +380,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/vue-router/" rel="tag"># vue router</a>
+            <a href="/tags/node基础/" rel="tag"># node基础</a>
           
         </div>
       
@@ -380,8 +393,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/12/11/原生js-ajax封装/" rel="next" title="原生js-ajax封装">
-                <i class="fa fa-chevron-left"></i> 原生js-ajax封装
+              <a href="/2018/12/30/跨域请求/" rel="next" title="跨域请求">
+                <i class="fa fa-chevron-left"></i> 跨域请求
               </a>
             
           </div>
@@ -390,8 +403,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/12/22/vuex-vue的状态管理模式/" rel="prev" title="vuex--vue的状态管理模式">
-                vuex--vue的状态管理模式 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/01/02/前端知识点总结-1/" rel="prev" title="前端知识点总结(1)">
+                前端知识点总结(1) <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -526,7 +539,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-概述"><span class="nav-number">1.</span> <span class="nav-text">1.概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-路由基础"><span class="nav-number">2.</span> <span class="nav-text">2.路由基础</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#http模块快速搭建服务器"><span class="nav-number">2.</span> <span class="nav-text">http模块快速搭建服务器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#URL模块"><span class="nav-number">3.</span> <span class="nav-text">URL模块</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#url-parse-方法-—-解析url为一个对象"><span class="nav-number">3.1.</span> <span class="nav-text">url.parse()方法 —  解析url为一个对象</span></a></li></ol></li></ol></div>
             
 
           </div>
