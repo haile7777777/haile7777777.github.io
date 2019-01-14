@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="littlebro_HLE">
 <meta property="og:description" content="概述本文主要记录了js中的对象拷贝，浅拷贝和深拷贝，以及实现浅拷贝的拓展方法">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-12T10:55:36.982Z">
+<meta property="og:updated_time" content="2019-01-13T00:58:49.801Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浅拷贝和深拷贝">
 <meta name="twitter:description" content="概述本文主要记录了js中的对象拷贝，浅拷贝和深拷贝，以及实现浅拷贝的拓展方法">
@@ -350,15 +350,19 @@
 </li>
 </ul>
 <h1 id="深拷贝-多层"><a href="#深拷贝-多层" class="headerlink" title="深拷贝(多层)"></a>深拷贝(多层)</h1><ul>
-<li>不只是拷贝对象的第一层，将对象多层拷贝<ul>
+<li><p>不只是拷贝对象的第一层，将对象多层拷贝</p>
+<ul>
 <li><strong>使用递归实现深拷贝</strong><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">let student = &#123;</span><br><span class="line">	name: &apos;rose&apos;,</span><br><span class="line">	age: 18,</span><br><span class="line">	school: &#123;</span><br><span class="line">		name: &apos;xxx中学&apos;,</span><br><span class="line">		address: &apos;地球&apos;</span><br><span class="line">	&#125;,</span><br><span class="line">	hobbies: [</span><br><span class="line">		&apos;basketball&apos;,</span><br><span class="line">		&apos;football&apos;</span><br><span class="line">	]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line">* 把obj1深拷贝到obj2</span><br><span class="line">* */</span><br><span class="line">function deepCopy(obj1, obj2) &#123;</span><br><span class="line"></span><br><span class="line">	for (let key in obj1) &#123;</span><br><span class="line">		let item = obj1[key]</span><br><span class="line"></span><br><span class="line">		if (item instanceof Object) &#123;</span><br><span class="line">			obj2[key] = &#123;&#125;</span><br><span class="line">			deepCopy(item, obj2[key])</span><br><span class="line">		&#125; else if (item instanceof Array) &#123;</span><br><span class="line">			obj2[key] = []</span><br><span class="line">			deepCopy(item, obj2[key])</span><br><span class="line">		&#125; else &#123;</span><br><span class="line">			obj2[key] = obj1[key]</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">let studentCopy = &#123;&#125;</span><br><span class="line">deepCopy(student, studentCopy)</span><br><span class="line">console.log(studentCopy)</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
+<hr>
+<ul>
+<li><strong>JSON.stringfy()/JSON.parse()实现深拷贝</strong><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">const originArray = [1,2,3,4,5];</span><br><span class="line">const cloneArray = JSON.parse(JSON.stringify(originArray));</span><br><span class="line">console.log(cloneArray === originArray); // false</span><br><span class="line"></span><br><span class="line">const originObj = &#123;a:&apos;a&apos;,b:&apos;b&apos;,c:[1,2,3],d:&#123;dd:&apos;dd&apos;&#125;&#125;;</span><br><span class="line">const cloneObj = JSON.parse(JSON.stringify(originObj));</span><br><span class="line">console.log(cloneObj === originObj); // false</span><br><span class="line"></span><br><span class="line">cloneObj.a = &apos;aa&apos;;</span><br><span class="line">cloneObj.c = [1,1,1];</span><br><span class="line">cloneObj.d.dd = &apos;doubled&apos;;</span><br><span class="line"></span><br><span class="line">console.log(cloneObj); // &#123;a:&apos;aa&apos;,b:&apos;b&apos;,c:[1,1,1],d:&#123;dd:&apos;doubled&apos;&#125;&#125;;</span><br><span class="line">console.log(originObj); // &#123;a:&apos;a&apos;,b:&apos;b&apos;,c:[1,2,3],d:&#123;dd:&apos;dd&apos;&#125;&#125;;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<pre><code>+ **JSON.stringfy()/JSON.parse()实现深拷贝**
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">const originArray = [1,2,3,4,5];</span><br><span class="line">const cloneArray = JSON.parse(JSON.stringify(originArray));</span><br><span class="line">console.log(cloneArray === originArray); // false</span><br><span class="line"></span><br><span class="line">const originObj = &#123;a:&apos;a&apos;,b:&apos;b&apos;,c:[1,2,3],d:&#123;dd:&apos;dd&apos;&#125;&#125;;</span><br><span class="line">const cloneObj = JSON.parse(JSON.stringify(originObj));</span><br><span class="line">console.log(cloneObj === originObj); // false</span><br><span class="line"></span><br><span class="line">cloneObj.a = &apos;aa&apos;;</span><br><span class="line">cloneObj.c = [1,1,1];</span><br><span class="line">cloneObj.d.dd = &apos;doubled&apos;;</span><br><span class="line"></span><br><span class="line">console.log(cloneObj); // &#123;a:&apos;aa&apos;,b:&apos;b&apos;,c:[1,1,1],d:&#123;dd:&apos;doubled&apos;&#125;&#125;;</span><br><span class="line">console.log(originObj); // &#123;a:&apos;a&apos;,b:&apos;b&apos;,c:[1,2,3],d:&#123;dd:&apos;dd&apos;&#125;&#125;;</span><br></pre></td></tr></table></figure>
-</code></pre><h1 id="数组拷贝拓展"><a href="#数组拷贝拓展" class="headerlink" title="数组拷贝拓展"></a>数组拷贝拓展</h1><ul>
+</li>
+</ul>
+<h1 id="数组拷贝拓展"><a href="#数组拷贝拓展" class="headerlink" title="数组拷贝拓展"></a>数组拷贝拓展</h1><ul>
 <li>slice()方法进行数组的浅拷贝<ul>
 <li>参数1：start – 开始位置</li>
 <li>参数2：end – 结束位置</li>
@@ -438,6 +442,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2019/01/12/offset-client和scroll/" rel="prev" title="offset,client和scroll">
+                offset,client和scroll <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -515,7 +523,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">18</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -537,7 +545,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
