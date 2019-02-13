@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="http学习二,">
+  <meta name="keywords" content="数组去重,">
 
 
 
@@ -79,21 +79,18 @@
 
 
 
-<meta name="description" content="概述本系列文章对HTTP协议的学习做一个记录，主要包括http基础，特性，tcp，以及nginx配置使用等知识点">
-<meta name="keywords" content="http学习二">
+<meta name="description" content="概述本文主要记录js中数组去重的五种方法，当然，总结不够全面，数组去重还有其他方法。但是，理解这几种就基本够了">
+<meta name="keywords" content="数组去重">
 <meta property="og:type" content="article">
-<meta property="og:title" content="http协议深入学习二">
-<meta property="og:url" content="http://yoursite.com/2019/01/21/http协议深入学习二/index.html">
+<meta property="og:title" content="数组去重">
+<meta property="og:url" content="http://yoursite.com/2019/02/14/数组去重/index.html">
 <meta property="og:site_name" content="littlebro_HLE">
-<meta property="og:description" content="概述本系列文章对HTTP协议的学习做一个记录，主要包括http基础，特性，tcp，以及nginx配置使用等知识点">
+<meta property="og:description" content="概述本文主要记录js中数组去重的五种方法，当然，总结不够全面，数组去重还有其他方法。但是，理解这几种就基本够了">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://s2.ax1x.com/2019/01/24/kZa0ud.png">
-<meta property="og:image" content="https://s2.ax1x.com/2019/01/24/kerx0g.png">
-<meta property="og:updated_time" content="2019-01-25T12:07:39.066Z">
+<meta property="og:updated_time" content="2019-02-13T17:50:10.322Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="http协议深入学习二">
-<meta name="twitter:description" content="概述本系列文章对HTTP协议的学习做一个记录，主要包括http基础，特性，tcp，以及nginx配置使用等知识点">
-<meta name="twitter:image" content="https://s2.ax1x.com/2019/01/24/kZa0ud.png">
+<meta name="twitter:title" content="数组去重">
+<meta name="twitter:description" content="概述本文主要记录js中数组去重的五种方法，当然，总结不够全面，数组去重还有其他方法。但是，理解这几种就基本够了">
 
 
 
@@ -123,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/01/21/http协议深入学习二/">
+  <link rel="canonical" href="http://yoursite.com/2019/02/14/数组去重/">
 
 
 
 
 
-  <title>http协议深入学习二 | littlebro_HLE</title>
+  <title>数组去重 | littlebro_HLE</title>
   
 
 
@@ -256,7 +253,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/21/http协议深入学习二/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/14/数组去重/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="HLE_littlebro">
@@ -273,7 +270,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">http协议深入学习二</h1>
+          <h1 class="post-title" itemprop="name headline">数组去重</h1>
         
 
         <div class="post-meta">
@@ -285,8 +282,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-21T18:08:35+08:00">
-                2019-01-21
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-14T01:40:09+08:00">
+                2019-02-14
               </time>
             
 
@@ -308,8 +305,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/http/" itemprop="url" rel="index">
-                    <span itemprop="name">http</span>
+                  <a href="/categories/js/" itemprop="url" rel="index">
+                    <span itemprop="name">js</span>
                   </a>
                 </span>
 
@@ -345,87 +342,28 @@
       
 
       
-        <h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>本系列文章对HTTP协议的学习做一个记录，主要包括http基础，特性，tcp，以及nginx配置使用等知识点</p>
+        <h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>本文主要记录js中数组去重的五种方法，当然，总结不够全面，数组去重还有其他方法。但是，理解这几种就基本够了</p>
 <a id="more"></a>
-<h1 id="TCP的三次握手"><a href="#TCP的三次握手" class="headerlink" title="TCP的三次握手"></a>TCP的三次握手</h1><ul>
-<li><p>http协议是基于TCP协议的，所以，在学习HTTP的时候，我们也需要补充一些TCP的知识点。</p>
-</li>
-<li><p><strong>三次握手</strong>是TCP的关键知识点之一，学习之前，需要了解几个知识点</p>
+<h1 id="数组去重的五种方法"><a href="#数组去重的五种方法" class="headerlink" title="数组去重的五种方法"></a>数组去重的五种方法</h1><ul>
+<li><strong>方法一：最简单的双层for循环</strong></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">let testArr = [1, 2, 5, 3, 2, 1, 6, 3]</span><br><span class="line"></span><br><span class="line">function uniqArr(arr) &#123;</span><br><span class="line">    for (let i = 0; i &lt; arr.length - 1; i++) &#123;</span><br><span class="line">        for (let j = i + 1; j &lt; arr.length; j++) &#123;</span><br><span class="line">            if (arr[i] === arr[j]) &#123;</span><br><span class="line">                arr.splice(j, 1)</span><br><span class="line">                j--</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return arr</span><br><span class="line">&#125;</span><br><span class="line">let temp = uniqArr(testArr)</span><br><span class="line">console.log(temp);  //[1,2,5,3,6]</span><br></pre></td></tr></table></figure>
 <ul>
-<li><p><strong>序号字段seq</strong>：</p>
-<ul>
-<li><p>指的是报文段<strong>首字节的字节流编号</strong></p>
-</li>
-<li><p>比如：A主机向B主机发送5000字节的文件，MSS为1000字节，</p>
-<p>所以报文被分为5个报文段：0-999,1000-1999,2000-2999,3000-3999,4000-4999，</p>
-<p>所以每个报文段的序号字段就是0,1000,2000,3000,4000</p>
-</li>
-</ul>
-</li>
-<li><p><strong>确认号字段</strong>：</p>
-<ul>
-<li><p>主机A填充进报文段的确认序号是主机A希望从主机B收到的<strong>下一个字节的序号</strong></p>
-</li>
-<li><p>比如：A主机收到了来自B主机的0-535的所有字节，</p>
-<p>​        A在等待536及以后的字节，同时它又想给B发送一个报文段</p>
-<p>​        所以，在A发给B的报文段的确认字段就是536</p>
-</li>
-</ul>
-</li>
-<li><p><strong>ACK：</strong>属于TCP报文段中的标志字段，用来指示确认字段中的值是有效的</p>
-</li>
-</ul>
-</li>
-<li><p><strong>正式学习TCP的三次握手过程</strong></p>
-<ul>
-<li><p><strong>图解三次握手</strong></p>
-<p><img src="https://s2.ax1x.com/2019/01/24/kZa0ud.png" alt="kZa0ud.png"></p>
-</li>
-<li><p><strong>文字解析</strong></p>
-<ul>
-<li><strong>第一步</strong>：<ul>
-<li>客户端向服务端发送一个SYN报文段，</li>
-<li>该报文段中SYN标志位置为1</li>
-<li>还会包含一个随机的初始序号client_isn，就是前面所说的序号字段</li>
-</ul>
-</li>
-<li><strong>第二步</strong>：<ul>
-<li>服务器接收到这个SYN报文段后，为客户端分配缓存和变量</li>
-<li>然后向客户端发送允许连接的报文段</li>
-<li>该报文段中SYN标志位置为1</li>
-<li>还会包含一个随机的初始序号server_isn，就是前面所说的序号字段</li>
-<li>同时，将报文段头部的确认字段置为client_isn+1</li>
-</ul>
-</li>
-<li><strong>第三步</strong>：<ul>
-<li>客户端收到服务器的SYN报文段，也为连接分配了缓存和变量</li>
-<li>客户端对服务器在发送一个对 连接确认的报文段</li>
-<li>将SYN置为0</li>
-<li>将seq置为client_isn+1</li>
-<li>将ack置为server_isn+1</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h1 id="为什么需要三次握手"><a href="#为什么需要三次握手" class="headerlink" title="为什么需要三次握手"></a>为什么需要三次握手</h1><ul>
-<li>一句话，避免资源浪费</li>
-<li><strong>假设情景：</strong>A向B发送SYN报文段请求建立连接，但在报文传输途中出现延时，丢包等情况，A就自动重新发送，经过三次握手建立了连接。但此时，之前的SYN报文段又恢复了，发到了B，如果B不进行三次握手进行连接确认，直接为这个之前的请求分配空间和变量，而A却不会在进行通信，所以这次连接是无效的，浪费了资源</li>
-</ul>
-<h1 id="关闭TCP连接的四次挥手"><a href="#关闭TCP连接的四次挥手" class="headerlink" title="关闭TCP连接的四次挥手"></a>关闭TCP连接的四次挥手</h1><ul>
-<li><p><strong>图解关闭连接</strong></p>
-<p><img src="https://s2.ax1x.com/2019/01/24/kerx0g.png" alt="kerx0g.png"></p>
+<li><p><strong>方法二：对上面方面优化，单层for循环+indexOf，提高效率 </strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">function uniqArr1(arr) &#123;</span><br><span class="line">    let temp = []</span><br><span class="line">    for (let i = 0; i &lt; arr.length; i++) &#123;</span><br><span class="line">        if (temp.indexOf(arr[i]) === -1) &#123;  </span><br><span class="line">            temp.push(arr[i])</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return temp</span><br><span class="line">&#125;</span><br><span class="line">let temp1 = uniqArr1(testArr)</span><br><span class="line">console.log(temp1);  //[1,2,5,3,6]</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 <ul>
-<li><strong>过程解析</strong><ul>
-<li>客户发送一个特殊TCP报文段，将FIN置为1，表示想要关闭连接</li>
-<li>服务器接收到后发送一个确认报文段</li>
-<li>服务器发送它自己的终止报文段，将FIN置为1</li>
-<li>客户端对服务器的终止报文段进行确认 </li>
+<li><p><strong>方法三：先排序，后去重 </strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">function uniqArr2(arr) &#123;</span><br><span class="line">    let temp = []</span><br><span class="line">    arr.sort((a, b) =&gt; &#123;</span><br><span class="line">        return a - b</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">    for (let i = 0; i &lt; arr.length; i++) &#123;</span><br><span class="line">        if (arr[i - 1] !== arr[i]) &#123;</span><br><span class="line">            temp.push(arr[i])</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return temp</span><br><span class="line">&#125;</span><br><span class="line">let temp2 = uniqArr2(testArr)</span><br><span class="line">console.log(temp2);  //[1,2,3,5,6]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>方法四：利用数组下标，将第一次出现的数组元素添加到新的数组中 </strong></p>
+</li>
 </ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">function uniqArr3(arr) &#123;</span><br><span class="line">    let temp = []</span><br><span class="line">    for (let i = 0; i &lt; arr.length; i++) &#123;</span><br><span class="line">        if (arr.indexOf(arr[i]) == i) &#123;</span><br><span class="line">            temp.push(arr[i])</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return temp</span><br><span class="line">&#125;</span><br><span class="line">let temp3 = uniqArr3(testArr)</span><br><span class="line">console.log(temp3);  //[1,2,3,5,6]</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p><strong>方法五：使用es6 </strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let temp4 = Array.from(new Set(testArr))</span><br><span class="line">console.log(temp4);  //[1,2,3,5,6]</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 
@@ -445,7 +383,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/http学习二/" rel="tag"># http学习二</a>
+            <a href="/tags/数组去重/" rel="tag"># 数组去重</a>
           
         </div>
       
@@ -458,8 +396,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/01/21/webpack4-0/" rel="next" title="webpack4.0">
-                <i class="fa fa-chevron-left"></i> webpack4.0
+              <a href="/2019/01/25/HTTP协议深入学习三/" rel="next" title="HTTP协议深入学习三">
+                <i class="fa fa-chevron-left"></i> HTTP协议深入学习三
               </a>
             
           </div>
@@ -467,10 +405,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/01/25/HTTP协议深入学习三/" rel="prev" title="HTTP协议深入学习三">
-                HTTP协议深入学习三 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -604,7 +538,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TCP的三次握手"><span class="nav-number">2.</span> <span class="nav-text">TCP的三次握手</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#为什么需要三次握手"><span class="nav-number">3.</span> <span class="nav-text">为什么需要三次握手</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#关闭TCP连接的四次挥手"><span class="nav-number">4.</span> <span class="nav-text">关闭TCP连接的四次挥手</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数组去重的五种方法"><span class="nav-number">2.</span> <span class="nav-text">数组去重的五种方法</span></a></li></ol></div>
             
 
           </div>
