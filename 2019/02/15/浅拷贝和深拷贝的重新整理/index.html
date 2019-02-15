@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/le-32.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/le-16.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="浅拷贝和深拷贝,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="概述之前的文章对js中的浅拷贝和深拷贝的已有总结，但是有点杂乱，本文重新整理，条理更清晰，更精简">
+<meta name="keywords" content="浅拷贝和深拷贝">
+<meta property="og:type" content="article">
+<meta property="og:title" content="浅拷贝和深拷贝的重新整理">
+<meta property="og:url" content="http://yoursite.com/2019/02/15/浅拷贝和深拷贝的重新整理/index.html">
+<meta property="og:site_name" content="littlebro_HLE">
+<meta property="og:description" content="概述之前的文章对js中的浅拷贝和深拷贝的已有总结，但是有点杂乱，本文重新整理，条理更清晰，更精简">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-02-15T08:22:39.980Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="浅拷贝和深拷贝的重新整理">
+<meta name="twitter:description" content="概述之前的文章对js中的浅拷贝和深拷贝的已有总结，但是有点杂乱，本文重新整理，条理更清晰，更精简">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/02/15/浅拷贝和深拷贝的重新整理/">
+
+
+
+
+
+  <title>浅拷贝和深拷贝的重新整理 | littlebro_HLE</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">littlebro_HLE</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/15/浅拷贝和深拷贝的重新整理/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="HLE_littlebro">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="littlebro_HLE">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">浅拷贝和深拷贝的重新整理</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-15T15:32:20+08:00">
+                2019-02-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/js/" itemprop="url" rel="index">
+                    <span itemprop="name">js</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>之前的文章对js中的浅拷贝和深拷贝的已有总结，但是有点杂乱，本文重新整理，条理更清晰，更精简</p>
+<a id="more"></a>
+<h1 id="什么是浅拷贝和深拷贝"><a href="#什么是浅拷贝和深拷贝" class="headerlink" title="什么是浅拷贝和深拷贝"></a>什么是浅拷贝和深拷贝</h1><ul>
+<li><p><strong>浅拷贝</strong>：只对对象进行第一层拷贝</p>
+</li>
+<li><p><strong>深拷贝：</strong>对对象进行多层次的拷贝</p>
+<blockquote>
+<p>总的来说，拷贝结束后，对<strong><em>原对象</em></strong>进行修改，拷贝对象也会变化则是浅拷贝，不会跟随变化则是深拷贝</p>
+</blockquote>
+</li>
+</ul>
+<h1 id="数组的浅拷贝"><a href="#数组的浅拷贝" class="headerlink" title="数组的浅拷贝"></a>数组的浅拷贝</h1><ul>
+<li><p><strong>slice()方法进行数组的浅拷贝</strong></p>
+<ul>
+<li>参数1：start – 开始位置</li>
+<li>参数2：end – 结束位置</li>
+<li>return: 返回新的包含截取元素的数组</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">//第一层拷贝</span><br><span class="line">let arr1 = [1,5,3,2,6]</span><br><span class="line">let arr2 = arr1.slice();</span><br><span class="line">arr1[1] = 8;</span><br><span class="line">console.log(arr1)  //[ 1, 8, 3, 2, 6 ]</span><br><span class="line">console.log(arr2)  //[ 1, 5, 3, 2, 6 ]</span><br><span class="line"></span><br><span class="line">//多层拷贝失败</span><br><span class="line">let arr1 = [1,5,[2,2,2,2]]</span><br><span class="line">let arr2 = arr1.slice();</span><br><span class="line">arr1[2][0] = 8;</span><br><span class="line">console.log(arr1)  //[ 1, 5, [ 8, 2, 2, 2 ] ]</span><br><span class="line">console.log(arr2)  //[ 1, 5, [ 8, 2, 2, 2 ] ]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>concat()方法进行数组的浅拷贝</strong></p>
+<ul>
+<li>参数：若干，可以是数组，也可以是具体值</li>
+<li>return： 返回一个新数组</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">//第一层拷贝</span><br><span class="line">let arr1 = [1, 5, 3, 2, 6]</span><br><span class="line">let arr2 = []</span><br><span class="line">arr2 = arr1.concat()</span><br><span class="line">arr1[0] = 6</span><br><span class="line">console.log(arr2)  //[ 1, 5, 3, 2, 6 ]</span><br><span class="line"></span><br><span class="line">//多层拷贝失败</span><br><span class="line">let arr1 = [1, 5, [1, 1, 1]]</span><br><span class="line">let arr2 = []</span><br><span class="line">arr2 = arr1.concat()</span><br><span class="line">arr1[2][0] = 6</span><br><span class="line">console.log(arr2)  //[ 1, 5, [ 6, 1, 1 ] ]</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h1 id="对象的浅拷贝"><a href="#对象的浅拷贝" class="headerlink" title="对象的浅拷贝"></a>对象的浅拷贝</h1><ul>
+<li><p><strong>使用ES6的Object.assign()方法实现对象的浅拷贝</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">let student = &#123;</span><br><span class="line">    name: &apos;rose&apos;,</span><br><span class="line">    age: 18,</span><br><span class="line">    school: &#123;</span><br><span class="line">        name: &apos;xxx中学&apos;,</span><br><span class="line">        address: &apos;地球&apos;</span><br><span class="line">    &#125;,</span><br><span class="line">    hobbies: [</span><br><span class="line">        &apos;basketball&apos;,</span><br><span class="line">        &apos;football&apos;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">let studentCopy = Object.assign(&#123;&#125;,student)</span><br><span class="line">console.log(studentCopy)</span><br><span class="line">student.name = &apos;jack&apos;</span><br><span class="line">student.school.name = &apos;***school&apos;</span><br><span class="line">console.log(studentCopy)</span><br><span class="line"></span><br><span class="line">-------------------------</span><br><span class="line">&#123; name: &apos;rose&apos;,</span><br><span class="line">  age: 18,</span><br><span class="line">  school: &#123; name: &apos;xxx中学&apos;, address: &apos;地球&apos; &#125;,</span><br><span class="line">  hobbies: [ &apos;basketball&apos;, &apos;football&apos; ] &#125;</span><br><span class="line">&#123; name: &apos;rose&apos;,</span><br><span class="line">  age: 18,</span><br><span class="line">  school: &#123; name: &apos;***school&apos;, address: &apos;地球&apos; &#125;,</span><br><span class="line">  hobbies: [ &apos;basketball&apos;, &apos;football&apos; ] &#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h1 id="数组和对象的浅拷贝"><a href="#数组和对象的浅拷贝" class="headerlink" title="数组和对象的浅拷贝"></a>数组和对象的浅拷贝</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">const originArray = [1,2,3,4,5,[6,7,8]];</span><br><span class="line">const originObj = &#123;a:1,b:&#123;bb:1&#125;&#125;;</span><br><span class="line"> </span><br><span class="line">const cloneArray = [...originArray];</span><br><span class="line">cloneArray[0] = 0;</span><br><span class="line">cloneArray[5].push(9);</span><br><span class="line">console.log(originArray); // [1,2,3,4,5,[6,7,8,9]]</span><br><span class="line"> </span><br><span class="line">const cloneObj = &#123;...originObj&#125;;</span><br><span class="line">cloneObj.a = 2;</span><br><span class="line">cloneObj.b.bb = 2;</span><br><span class="line">console.log(originObj); // &#123;a:1,b:&#123;bb:2&#125;&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="深拷贝"><a href="#深拷贝" class="headerlink" title="深拷贝"></a>深拷贝</h1><ul>
+<li><p><strong>手写一个简单的数组和对象深拷贝</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">//定义检测数据类型的功能函数</span><br><span class="line">    function checkedType(target) &#123;</span><br><span class="line">      return Object.prototype.toString.call(target).slice(8, -1)</span><br><span class="line">    &#125;</span><br><span class="line">    //实现深度克隆---对象/数组</span><br><span class="line">    function clone(target) &#123;</span><br><span class="line">      //判断拷贝的数据类型</span><br><span class="line">      //初始化变量result 成为最终克隆的数据</span><br><span class="line">      let result, targetType = checkedType(target)</span><br><span class="line">      if (targetType === &apos;Object&apos;) &#123;</span><br><span class="line">        result = &#123;&#125;</span><br><span class="line">      &#125; else if (targetType === &apos;Array&apos;) &#123;</span><br><span class="line">        result = []</span><br><span class="line">      &#125; else &#123;</span><br><span class="line">        return target</span><br><span class="line">      &#125;</span><br><span class="line">      //遍历目标数据</span><br><span class="line">      for (let i in target) &#123;</span><br><span class="line">        //获取遍历数据结构的每一项值。</span><br><span class="line">        let value = target[i]</span><br><span class="line">        //判断目标结构里的每一值是否存在对象/数组</span><br><span class="line">        if (checkedType(value) === &apos;Object&apos; ||</span><br><span class="line">          checkedType(value) === &apos;Array&apos;) &#123; //对象/数组里嵌套了对象/数组</span><br><span class="line">          //继续遍历获取到value值</span><br><span class="line">          result[i] = clone(value)</span><br><span class="line">        &#125; else &#123; //获取到value值是基本的数据类型或者是函数。</span><br><span class="line">          result[i] = value;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      return result</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>JSON.stringfy()/JSON.parse()实现深拷贝</strong> </p>
+<blockquote>
+<p>如果已知的要对对象和数组进行深拷贝的话，可以使用这种方法，如果包含undefined，function，这种方法不合适</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">const originArray = [1,2,3,4,5];</span><br><span class="line">const cloneArray = JSON.parse(JSON.stringify(originArray));</span><br><span class="line">console.log(cloneArray === originArray); // false</span><br><span class="line"></span><br><span class="line">const originObj = &#123;a:&apos;a&apos;,b:&apos;b&apos;,c:[1,2,3],d:&#123;dd:&apos;dd&apos;&#125;&#125;;</span><br><span class="line">const cloneObj = JSON.parse(JSON.stringify(originObj));</span><br><span class="line">console.log(cloneObj === originObj); // false</span><br><span class="line"></span><br><span class="line">cloneObj.a = &apos;aa&apos;;</span><br><span class="line">cloneObj.c = [1,1,1];</span><br><span class="line">cloneObj.d.dd = &apos;doubled&apos;;</span><br><span class="line"></span><br><span class="line">console.log(cloneObj); // &#123;a:&apos;aa&apos;,b:&apos;b&apos;,c:[1,1,1],d:&#123;dd:&apos;doubled&apos;&#125;&#125;;</span><br><span class="line">console.log(originObj); // &#123;a:&apos;a&apos;,b:&apos;b&apos;,c:[1,2,3],d:&#123;dd:&apos;dd&apos;&#125;&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>使用lodash</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">let clone = _.cloneDeep(target)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/浅拷贝和深拷贝/" rel="tag"># 浅拷贝和深拷贝</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/14/js中的sort方法/" rel="next" title="js中的sort方法">
+                <i class="fa fa-chevron-left"></i> js中的sort方法
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.png" alt="HLE_littlebro">
+            
+              <p class="site-author-name" itemprop="name">HLE_littlebro</p>
+              <p class="site-description motion-element" itemprop="description">技术面前，一直都是小老弟</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是浅拷贝和深拷贝"><span class="nav-number">2.</span> <span class="nav-text">什么是浅拷贝和深拷贝</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数组的浅拷贝"><span class="nav-number">3.</span> <span class="nav-text">数组的浅拷贝</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#对象的浅拷贝"><span class="nav-number">4.</span> <span class="nav-text">对象的浅拷贝</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数组和对象的浅拷贝"><span class="nav-number">5.</span> <span class="nav-text">数组和对象的浅拷贝</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#深拷贝"><span class="nav-number">6.</span> <span class="nav-text">深拷贝</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">HLE_littlebro</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
